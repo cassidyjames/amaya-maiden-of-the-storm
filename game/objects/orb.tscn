@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://8x6tcn8g8eov"]
+
+[ext_resource type="Texture2D" uid="uid://bfqca3v5t526y" path="res://sprites/orb.png" id="1_148eb"]
+[ext_resource type="Script" path="res://objects/orb.gd" id="2_v8qit"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fp5pc"]
+radius = 8.0
+
+[node name="Orb" type="Area2D" groups=["orb"]]
+script = ExtResource("2_v8qit")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fp5pc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_148eb")
+hframes = 4
+
+[node name="Timer_NextFrame" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer_NextFrame" to="." method="_on_timer_next_frame_timeout"]

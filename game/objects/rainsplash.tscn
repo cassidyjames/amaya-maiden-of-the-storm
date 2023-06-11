@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxrmf5u7vfjiv"]
+
+[ext_resource type="Texture2D" uid="uid://cy3bolqy4lp2m" path="res://sprites/rainsplash.png" id="1_ocbdg"]
+[ext_resource type="Script" path="res://objects/rainsplash.gd" id="2_uwf12"]
+
+[node name="Rainsplash" type="Sprite2D"]
+z_index = 100
+texture_filter = 1
+texture = ExtResource("1_ocbdg")
+offset = Vector2(0, -3.5)
+hframes = 3
+script = ExtResource("2_uwf12")
+
+[node name="Timer_NextFrame" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[connection signal="timeout" from="Timer_NextFrame" to="." method="_on_timer_next_frame_timeout"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3xyoni7hmt8h"]
+
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_fgi5y"]
+[ext_resource type="Shader" path="res://shaders/transition.gdshader" id="3_llllw"]
+[ext_resource type="Texture2D" uid="uid://qurhnuyuk2j5" path="res://sprites/vignette.png" id="4_gc5ww"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l87aj"]
+shader = ExtResource("3_llllw")
+shader_parameter/amount = 0.0
+
+[node name="Game" type="Node" groups=["game"]]
+script = ExtResource("1_fgi5y")
+
+[node name="Transition" type="Sprite2D" parent="."]
+z_index = 1000
+material = SubResource("ShaderMaterial_l87aj")
+scale = Vector2(5, 5)
+texture = ExtResource("4_gc5ww")
+centered = false

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgghacd520lu8"]
+
+[ext_resource type="Script" path="res://objects/rainbeam.gd" id="1_3c6y3"]
+[ext_resource type="Texture2D" uid="uid://dggnw4o3ifcbr" path="res://sprites/rain.png" id="1_61lsm"]
+
+[node name="Rainbeam" type="RayCast2D"]
+target_position = Vector2(0, 720)
+script = ExtResource("1_3c6y3")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(0.656526, 0.767036, 1, 0.501961)
+texture_filter = 1
+texture_repeat = 2
+scale = Vector2(1, 8)
+texture = ExtResource("1_61lsm")
+centered = false
+offset = Vector2(-0.5, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 1, 90)

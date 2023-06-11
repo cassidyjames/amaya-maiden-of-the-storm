@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://3mne8gu8wwme"]
+
+[ext_resource type="Script" path="res://objects/rainrow.gd" id="1_1h7uy"]
+
+[node name="Rainrow" type="Node2D" groups=["rainrow"]]
+z_index = -50
+script = ExtResource("1_1h7uy")
