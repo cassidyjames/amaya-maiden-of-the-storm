@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dh5q7o1myw66j"]
+[gd_scene load_steps=7 format=3 uid="uid://dh5q7o1myw66j"]
 
 [ext_resource type="Texture2D" uid="uid://b26fx2gx75hdq" path="res://sprites/player.png" id="1_cdcfq"]
 [ext_resource type="Script" path="res://objects/player.gd" id="1_smei0"]
 [ext_resource type="Shader" path="res://shaders/player.gdshader" id="2_233vt"]
+[ext_resource type="Texture2D" uid="uid://c558hu4ho21oe" path="res://sprites/arrow.png" id="4_w8tc3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1xxlt"]
 size = Vector2(10, 30)
@@ -30,3 +31,16 @@ region_rect = Rect2(0, 0, 32, 40)
 
 [node name="OrbFloatPoint" type="Node2D" parent="."]
 position = Vector2(0, -48)
+
+[node name="Arrow_Left" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(-16, -16)
+texture = ExtResource("4_w8tc3")
+flip_h = true
+
+[node name="Arrow_Right" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(16, -16)
+texture = ExtResource("4_w8tc3")

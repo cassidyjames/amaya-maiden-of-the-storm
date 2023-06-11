@@ -13,6 +13,8 @@ const MAX_FALL : float = 160.0
 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var orb_float_point : Node2D = $OrbFloatPoint
+@onready var arrow_left : Sprite2D = $Arrow_Left
+@onready var arrow_right : Sprite2D = $Arrow_Right
 
 enum State {NORMAL, WIND_CHANGE, CHANGE_LEFT, CHANGE_RIGHT, HIT}
 
@@ -65,7 +67,8 @@ func state_normal(delta : float) -> void:
 		if Input.is_action_just_pressed("change_wind"):
 			current_state = State.WIND_CHANGE
 			anim_index = 0.0
-			sprite.flip_h = false
+			arrow_left.show()
+			arrow_right.show()
 	
 	do_the_move_thing(Vector2.RIGHT, delta)
 	do_the_move_thing(Vector2.DOWN, delta)
@@ -74,14 +77,28 @@ func state_normal(delta : float) -> void:
 func state_wind_change(delta : float) -> void:
 	anim_index += delta * 10.0
 	sprite.frame = 1 + clampf(anim_index, 0.0, 1.0)
+	arrow_left.offset.x = sin(anim_index) * 4.0
+	arrow_right.offset.x = -sin(anim_index) * 4.0
 	if Input.is_action_just_pressed("run_left"):
 		get_tree().call_group("rainrow", "change_rain_direction", Vector2.LEFT)
+		sprite.flip_h = false
 		anim_index = 0.0
 		current_state = State.CHANGE_LEFT
+		arrow_left.hide()
+		arrow_right.hide()
 	elif Input.is_action_just_pressed("run_right"):
 		get_tree().call_group("rainrow", "change_rain_direction", Vector2.RIGHT)
+		sprite.flip_h = false
 		anim_index = 0.0
 		current_state = State.CHANGE_RIGHT
+		arrow_left.hide()
+		arrow_right.hide()
+	elif Input.is_action_just_pressed("change_wind"):
+		sprite.frame = 0
+		anim_index = 0.0
+		current_state = State.NORMAL
+		arrow_left.hide()
+		arrow_right.hide()
 
 func state_change_left(delta : float) -> void:
 	anim_index += delta * 10.0
