@@ -562,10 +562,6 @@ position = Vector2(608, 256)
 [node name="Shrine" parent="." instance=ExtResource("5_ioqj0")]
 position = Vector2(40, 288)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
-zoom = Vector2(2, 2)
-
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -100
 position = Vector2(320, 180)

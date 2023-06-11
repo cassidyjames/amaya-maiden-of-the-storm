@@ -22,7 +22,9 @@ func change_level() -> void:
 	var tween : Tween = create_tween()
 	tween.tween_property(self, "transition_amount", 0.0, 0.5)
 	await tween.finished
+	level.global_position.y += 1000
 	level.queue_free()
+	await get_tree().create_timer(0.5).timeout
 	level = LEVELS[current_level].instantiate()
 	add_child(level)
 	tween = create_tween()

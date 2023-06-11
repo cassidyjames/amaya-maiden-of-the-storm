@@ -17,3 +17,7 @@ material = SubResource("ShaderMaterial_l87aj")
 scale = Vector2(5, 5)
 texture = ExtResource("4_gc5ww")
 centered = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(2, 2)

@@ -24,8 +24,10 @@ var has_orb : bool = false
 var anim_index : float = 0.0
 var shine_a : float = 0.0
 var shine_b : float = 0.0
+var spawn_invuln : float = 0.1
 
 func get_hit_with_rain() -> void:
+	if current_state == State.HIT or spawn_invuln > 0.0: return
 	get_tree().call_group("orb", "_on_player_hit")
 	current_state = State.HIT
 	var tween : Tween = create_tween().set_parallel()
@@ -124,4 +126,4 @@ func _physics_process(delta : float) -> void:
 		State.CHANGE_RIGHT: state_change_right(delta)
 	sprite.material.set_shader_parameter("shine_a", shine_a)
 	sprite.material.set_shader_parameter("shine_b", shine_b)
-	
+	spawn_invuln = clamp(spawn_invuln - delta, 0.0, 0.1)
