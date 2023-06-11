@@ -14,11 +14,13 @@ func _process(delta : float) -> void:
 		sprite.region_rect.size.y = beam_length / 8.0
 		if get_collider() is Player:
 			get_collider().get_hit_with_rain()
-		elif rain_refresh <= 0.0 and get_collision_normal() == Vector2.UP:
+		elif rain_refresh <= 0.0 and get_collision_normal() == Vector2.UP and get_collision_point().y > 32.0:
 			var rainsplash : Sprite2D = _Rainsplash.instantiate()
 			get_parent().add_child(rainsplash)
 			rainsplash.global_position = get_collision_point()
 			rain_refresh = randf_range(0.5, 1.0)
+		elif get_collider() is Bucket and get_collision_normal() == Vector2.UP:
+			get_collider().hit_by_rain()
 	else:
 		sprite.region_rect.size.y = 90.0
 	rain_refresh -= delta

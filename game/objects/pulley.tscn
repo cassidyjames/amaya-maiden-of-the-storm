@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkqgvmj6vlgwg"]
+
+[ext_resource type="Script" path="res://objects/pulley.gd" id="1_a5xey"]
+[ext_resource type="Texture2D" uid="uid://c5lua1olcdsyt" path="res://sprites/axel.png" id="1_i368r"]
+[ext_resource type="Texture2D" uid="uid://oxlo6brcuv5e" path="res://sprites/chain.png" id="2_lpdo5"]
+
+[node name="Pulley" type="Node2D"]
+script = ExtResource("1_a5xey")
+
+[node name="Axel1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-64, -8)
+texture = ExtResource("1_i368r")
+
+[node name="Axel2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(64, -8)
+texture = ExtResource("1_i368r")
+
+[node name="Chain_Top" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, -8)
+rotation = -1.5708
+texture = ExtResource("2_lpdo5")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 112)
+
+[node name="Chain_Left" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(-64, 0)
+texture = ExtResource("2_lpdo5")
+centered = false
+offset = Vector2(-8, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 48)
+
+[node name="Chain_Right" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(64, 0)
+texture = ExtResource("2_lpdo5")
+centered = false
+offset = Vector2(-8, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 160)
