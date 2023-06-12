@@ -19,7 +19,7 @@ func _process(delta : float) -> void:
 			get_parent().add_child(rainsplash)
 			rainsplash.global_position = get_collision_point()
 			rain_refresh = randf_range(0.5, 1.0)
-		elif (get_collider() is Bucket or get_collider() is Torch) and get_collision_normal() == Vector2.UP:
+		elif (get_collider() is Bucket or get_collider() is Torch or get_collider() is TreeGarden) and get_collision_normal() == Vector2.UP:
 			get_collider().hit_by_rain()
 	else:
 		sprite.region_rect.size.y = 90.0
