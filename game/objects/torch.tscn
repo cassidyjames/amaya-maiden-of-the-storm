@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjym5w26lhmy6"]
+
+[ext_resource type="Texture2D" uid="uid://ncihxao1ofi8" path="res://sprites/torch.png" id="1_8fdwu"]
+[ext_resource type="Script" path="res://objects/torch.gd" id="1_kf76o"]
+[ext_resource type="Shader" path="res://shaders/fire.gdshader" id="2_6nn4f"]
+[ext_resource type="Texture2D" uid="uid://b0pjqkk1kam2v" path="res://sprites/fire_mask.png" id="3_3x4o6"]
+[ext_resource type="Texture2D" uid="uid://bqibijyo0ehx0" path="res://sprites/fire_cloud.png" id="3_vkkbx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3sx4r"]
+shader = ExtResource("2_6nn4f")
+shader_parameter/multiplier = 1.0
+shader_parameter/flame = ExtResource("3_vkkbx")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2e58"]
+size = Vector2(32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7sw2r"]
+radius = 12.0
+
+[node name="Torch" type="StaticBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_kf76o")
+
+[node name="Base" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_8fdwu")
+offset = Vector2(0, 16)
+
+[node name="Flame" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3sx4r")
+position = Vector2(0, -16)
+texture = ExtResource("3_3x4o6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_k2e58")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Area2D_Flame" type="Area2D" parent="."]
+position = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_Flame"]
+shape = SubResource("CircleShape2D_7sw2r")
+
+[connection signal="body_entered" from="Area2D_Flame" to="." method="_on_area_2d_flame_body_entered"]

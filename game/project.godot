@@ -57,3 +57,5 @@ change_wind={
 
 2d_physics/layer_1="Rainstopper"
 2d_physics/layer_2="Geometry"
+2d_physics/layer_3="Player"
+2d_physics/layer_4="Deadly"
