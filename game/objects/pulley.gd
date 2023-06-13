@@ -5,14 +5,14 @@ const DESCEND_SPEED : float = 100.0
 @export_node_path("Node2D") var path_left_object
 @export_node_path("Node2D") var path_right_object
 
-@onready var left_object : Node2D = get_node(path_left_object)
-@onready var right_object : Node2D = get_node(path_right_object)
+@onready var left_object : WetPushThing = get_node(path_left_object)
+@onready var right_object : WetPushThing = get_node(path_right_object)
 @onready var chain_top : Sprite2D = $Chain_Top
 @onready var chain_left : Sprite2D = $Chain_Left
 @onready var chain_right : Sprite2D = $Chain_Right
 
 func _physics_process(delta : float) -> void:
-	var mass_difference : float = right_object.get_mass() - left_object.get_mass()
+	var mass_difference : float = right_object.get_mass_of_self_and_top() - left_object.get_mass_of_self_and_top()
 	var left_chain_length : float = left_object.global_position.y - global_position.y
 	var right_chain_length : float = right_object.global_position.y - global_position.y
 	var heavy_item : Node2D = right_object if mass_difference > 0.0 else left_object
@@ -35,3 +35,7 @@ func _physics_process(delta : float) -> void:
 		light_chain.region_rect.position.y += amount_moved
 		heavy_chain.region_rect.size.y += amount_moved
 		light_chain.region_rect.size.y -= amount_moved
+
+func _ready() -> void:
+	chain_left.region_rect.size.y = left_object.global_position.y - global_position.y
+	chain_right.region_rect.size.y = right_object.global_position.y - global_position.y

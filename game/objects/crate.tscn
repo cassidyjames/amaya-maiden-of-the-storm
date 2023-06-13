@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqjk4oybmdu4k"]
+
+[ext_resource type="Texture2D" uid="uid://cnp2qxkpjc2kd" path="res://sprites/crate.png" id="1_3q878"]
+[ext_resource type="Script" path="res://objects/wet_push_thing.gd" id="1_8wqnw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_puakv"]
+size = Vector2(31, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yhw8o"]
+size = Vector2(32, 2)
+
+[node name="Crate" type="StaticBody2D" groups=["wet_push_thing"]]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_8wqnw")
+path_area_top_space = NodePath("Area2D_TopSpace")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_puakv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -16)
+texture = ExtResource("1_3q878")
+
+[node name="Area2D_TopSpace" type="Area2D" parent="."]
+position = Vector2(0, -33)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_TopSpace"]
+shape = SubResource("RectangleShape2D_yhw8o")

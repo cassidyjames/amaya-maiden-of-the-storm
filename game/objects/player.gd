@@ -50,18 +50,20 @@ func do_the_move_thing(direction : Vector2, delta : float) -> void:
 			velocity.y = 0.0
 		elif normal in [Vector2.LEFT, Vector2.RIGHT]:
 			velocity.x = 0.0
+			if collision.get_collider().is_in_group("wet_push_thing"):
+				collision.get_collider().get_pushed(normal * Vector2(-1, 0), delta)
+
+func do_the_run_thing(direction : Vector2, flip_sprite : bool, delta : float) -> void:
+	velocity.x = clamp(velocity.x + (direction.x * RUN_ACCEL * delta), -RUN_SPEED, RUN_SPEED)
+	sprite.flip_h = flip_sprite
+	sprite.frame = wrapi(anim_index, 12, 22)
+	anim_index += delta * 20.0
 
 func state_normal(delta : float) -> void:
 	if Input.is_action_pressed("run_right"):
-		velocity.x = clamp(velocity.x + (RUN_ACCEL * delta), -RUN_SPEED, RUN_SPEED)
-		sprite.flip_h = false
-		sprite.frame = wrapi(anim_index, 12, 22)
-		anim_index += delta * 20.0
+		do_the_run_thing(Vector2.RIGHT, false, delta)
 	elif Input.is_action_pressed("run_left"):
-		velocity.x = clamp(velocity.x - (RUN_ACCEL * delta), -RUN_SPEED, RUN_SPEED)
-		sprite.flip_h = true
-		sprite.frame = wrapi(anim_index, 12, 22)
-		anim_index += delta * 20.0
+		do_the_run_thing(Vector2.LEFT, true, delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, RUN_DECEL * delta)
 		sprite.frame = 0

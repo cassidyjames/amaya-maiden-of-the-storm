@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtxphweoy247o"]
+[gd_scene load_steps=6 format=3 uid="uid://dtxphweoy247o"]
 
 [ext_resource type="Script" path="res://objects/bucket.gd" id="1_d45jf"]
 [ext_resource type="Texture2D" uid="uid://bhhhh3cj68psl" path="res://sprites/bucket.png" id="1_dsbun"]
@@ -7,10 +7,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nuuw6"]
 size = Vector2(28, 18)
 
-[node name="Bucket" type="StaticBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tm81g"]
+size = Vector2(24, 2)
+
+[node name="Bucket" type="StaticBody2D" groups=["wet_push_thing"]]
 collision_layer = 3
 collision_mask = 2
 script = ExtResource("1_d45jf")
+path_area_top_space = NodePath("Area2D_TopSpace")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -26,3 +30,9 @@ texture_filter = 1
 position = Vector2(0, 23)
 texture = ExtResource("2_gstba")
 hframes = 7
+
+[node name="Area2D_TopSpace" type="Area2D" parent="."]
+position = Vector2(0, 12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_TopSpace"]
+shape = SubResource("RectangleShape2D_tm81g")

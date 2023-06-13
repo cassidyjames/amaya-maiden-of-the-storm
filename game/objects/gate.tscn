@@ -1,15 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://b52bhoodvewbg"]
+[gd_scene load_steps=5 format=3 uid="uid://b52bhoodvewbg"]
 
 [ext_resource type="Texture2D" uid="uid://c4ttm8jhpkj5e" path="res://sprites/gate.png" id="1_cp3cs"]
-[ext_resource type="Script" path="res://objects/gate.gd" id="1_w4uul"]
+[ext_resource type="Script" path="res://objects/wet_push_thing.gd" id="1_kd2gd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fxiw6"]
 size = Vector2(30, 96)
 
-[node name="Gate" type="StaticBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5kym"]
+size = Vector2(28, 2)
+
+[node name="Gate" type="StaticBody2D" groups=["wet_push_thing"]]
 collision_layer = 3
 collision_mask = 2
-script = ExtResource("1_w4uul")
+script = ExtResource("1_kd2gd")
+path_area_top_space = NodePath("Area2D_TopSpace")
+mass = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -19,3 +24,9 @@ texture = ExtResource("1_cp3cs")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 48)
 shape = SubResource("RectangleShape2D_fxiw6")
+
+[node name="Area2D_TopSpace" type="Area2D" parent="."]
+position = Vector2(0, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_TopSpace"]
+shape = SubResource("RectangleShape2D_m5kym")
