@@ -55,11 +55,17 @@ func state_normal(delta : float) -> void:
 	if Input.is_action_pressed("run_right"):
 		velocity.x = clamp(velocity.x + (RUN_ACCEL * delta), -RUN_SPEED, RUN_SPEED)
 		sprite.flip_h = false
+		sprite.frame = wrapi(anim_index, 12, 22)
+		anim_index += delta * 20.0
 	elif Input.is_action_pressed("run_left"):
 		velocity.x = clamp(velocity.x - (RUN_ACCEL * delta), -RUN_SPEED, RUN_SPEED)
 		sprite.flip_h = true
+		sprite.frame = wrapi(anim_index, 12, 22)
+		anim_index += delta * 20.0
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, RUN_DECEL * delta)
+		sprite.frame = 0
+		anim_index = 0.0
 	
 	if !test_move(transform, Vector2.DOWN):
 		velocity.y = clamp(velocity.y + (FALL_INCR * delta), -MAX_FALL, MAX_FALL)

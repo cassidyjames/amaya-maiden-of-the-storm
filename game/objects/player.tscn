@@ -26,7 +26,8 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_gax2p")
 texture = ExtResource("1_cdcfq")
 offset = Vector2(0, -20)
-hframes = 9
+hframes = 12
+vframes = 2
 region_rect = Rect2(0, 0, 32, 40)
 
 [node name="OrbFloatPoint" type="Node2D" parent="."]
