@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3xyoni7hmt8h"]
+[gd_scene load_steps=6 format=3 uid="uid://b3xyoni7hmt8h"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_fgi5y"]
 [ext_resource type="Shader" path="res://shaders/transition.gdshader" id="3_llllw"]
 [ext_resource type="Texture2D" uid="uid://qurhnuyuk2j5" path="res://sprites/vignette.png" id="4_gc5ww"]
+[ext_resource type="PackedScene" uid="uid://blr3hvyogxr3u" path="res://objects/level_indicator.tscn" id="4_teo8t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l87aj"]
 shader = ExtResource("3_llllw")
@@ -21,3 +22,8 @@ centered = false
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 zoom = Vector2(2, 2)
+
+[node name="LevelIndicator" parent="." instance=ExtResource("4_teo8t")]
+visible = false
+z_index = 1500
+position = Vector2(320, 180)

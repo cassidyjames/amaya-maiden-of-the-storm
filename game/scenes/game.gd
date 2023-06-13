@@ -11,28 +11,38 @@ const LEVELS : Array = [
 
 var level : Node2D
 @onready var transition : Sprite2D = $Transition
+@onready var level_indicator : Node2D = $LevelIndicator
 
 var transition_amount : float = 0.0
 var current_level : int = 0
 
-func _on_player_dead() -> void:
-	change_level()
+func start_level() -> void:
+	level = LEVELS[current_level].instantiate()
+	add_child(level)
+	var tween : Tween = create_tween()
+	tween.tween_property(self, "transition_amount", 1.0, 0.5)
 
-func _on_level_clear() -> void:
-	current_level = wrapi(current_level + 1, 0, LEVELS.size())
-	change_level()
-
-func change_level() -> void:
+func end_level() -> void:
 	var tween : Tween = create_tween()
 	tween.tween_property(self, "transition_amount", 0.0, 0.5)
 	await tween.finished
 	level.global_position.y += 1000
 	level.queue_free()
+
+func _on_level_clear() -> void:
+	current_level = wrapi(current_level + 1, 0, LEVELS.size())
+	end_level()
+	level_indicator.show()
+	level_indicator.play(current_level)
+	await get_tree().create_timer(2.25).timeout
+	start_level()
+	await get_tree().create_timer(1.0).timeout
+	level_indicator.hide()
+
+func _on_player_dead() -> void:
+	await end_level()
 	await get_tree().create_timer(0.5).timeout
-	level = LEVELS[current_level].instantiate()
-	add_child(level)
-	tween = create_tween()
-	tween.tween_property(self, "transition_amount", 1.0, 0.5)
+	start_level()
 
 func _process(delta : float) -> void:
 	transition.material.set_shader_parameter("amount", transition_amount)

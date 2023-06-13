@@ -46,7 +46,8 @@ func get_pushed(direction : Vector2, delta : float) -> float:
 	
 	var total_mass : float = mass
 	for thing in things_to_be_pushed:
-		total_mass += thing.get_mass_of_self_and_top()
+		if thing.is_in_group("wet_push_thing"):
+			total_mass += thing.get_mass_of_self_and_top()
 	
 	var distance_to_move : float = remap(total_mass, 0.0, 4.0, ZERO_MASS_PUSH_SPEED, 0.0)
 	distance_to_move = clamp(distance_to_move, 0.0, ZERO_MASS_PUSH_SPEED)
