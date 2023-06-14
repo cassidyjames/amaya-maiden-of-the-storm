@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjym5w26lhmy6"]
+[gd_scene load_steps=10 format=3 uid="uid://bjym5w26lhmy6"]
 
 [ext_resource type="Texture2D" uid="uid://ncihxao1ofi8" path="res://sprites/torch.png" id="1_8fdwu"]
 [ext_resource type="Script" path="res://objects/torch.gd" id="1_kf76o"]
@@ -17,10 +17,15 @@ size = Vector2(32, 32)
 [sub_resource type="CircleShape2D" id="CircleShape2D_7sw2r"]
 radius = 12.0
 
-[node name="Torch" type="StaticBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rccsc"]
+size = Vector2(28, 2)
+
+[node name="Torch" type="StaticBody2D" groups=["wet_push_thing"]]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_kf76o")
+path_area_top_space = NodePath("Area2D_TopSpace")
+mass = 2.0
 
 [node name="Base" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -38,9 +43,15 @@ shape = SubResource("RectangleShape2D_k2e58")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="Area2D_Flame" type="Area2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_Flame"]
 shape = SubResource("CircleShape2D_7sw2r")
+
+[node name="Area2D_TopSpace" type="Area2D" parent="."]
+position = Vector2(0, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_TopSpace"]
+shape = SubResource("RectangleShape2D_rccsc")
 
 [connection signal="body_entered" from="Area2D_Flame" to="." method="_on_area_2d_flame_body_entered"]

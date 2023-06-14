@@ -30,9 +30,9 @@ func _physics_process(delta : float) -> void:
 		var ascend_remainder : float = light_item.descend(-amount_moved)
 		heavy_item.descend(-ascend_remainder)
 		amount_moved -= ascend_remainder
-		chain_top.region_rect.position.y += amount_moved
-		heavy_chain.region_rect.position.y -= amount_moved
+		chain_top.region_rect.position.y += -amount_moved if mass_difference > 0.0 else amount_moved
 		light_chain.region_rect.position.y += amount_moved
+		heavy_chain.region_rect.position.y -= amount_moved
 		heavy_chain.region_rect.size.y += amount_moved
 		light_chain.region_rect.size.y -= amount_moved
 

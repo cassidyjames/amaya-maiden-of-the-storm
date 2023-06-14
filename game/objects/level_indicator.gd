@@ -1,6 +1,6 @@
 extends Node2D
 
-const ORB_COUNT : int = 6
+const ORB_COUNT : int = 8
 const ORB_OFFSET : float = (PI * 2) / ORB_COUNT
 
 @onready var orb : Sprite2D = $Orb

@@ -8,6 +8,7 @@ const LEVELS : Array = [
 	preload("res://levels/level5.tscn"),
 	preload("res://levels/level6.tscn"),
 	preload("res://levels/level7.tscn"),
+	preload("res://levels/level8.tscn"),
 ]
 
 var level : Node2D

@@ -56,7 +56,6 @@ func get_pushed(direction : Vector2, delta : float) -> float:
 	var collision : KinematicCollision2D = move_and_collide(distance_to_move * direction)
 	var distance_moved : float = distance_to_move
 	if collision != null:
-		print(collision.get_normal())
 		distance_moved -= collision.get_remainder().length()
 	
 	for thing in things_to_be_pushed:
