@@ -23,5 +23,6 @@ func _process(delta):
 			fully_grown = true
 			treetop.show()
 			treetop.set_collision_layer_value(1, true)
+			treetop.set_collision_layer_value(2, true)
 	sprite.material.set_shader_parameter("growth", growth)
 	outline_l.material.set_shader_parameter("growth", growth)

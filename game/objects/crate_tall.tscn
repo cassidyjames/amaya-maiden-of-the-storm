@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://daatr7kkh63v1" path="res://sprites/crate_tall.png" id="2_kfbg0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_puakv"]
-size = Vector2(31, 63)
+size = Vector2(31, 31)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yhw8o"]
-size = Vector2(28, 2)
+size = Vector2(32, 2)
 
 [node name="CrateTall" type="StaticBody2D" groups=["wet_push_thing"]]
 collision_layer = 3

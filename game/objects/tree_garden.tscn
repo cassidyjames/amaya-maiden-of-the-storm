@@ -26,6 +26,8 @@ size = Vector2(64, 16)
 size = Vector2(64, 16)
 
 [node name="Tree" type="StaticBody2D"]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_qfhw7")
 
 [node name="Outline_L" type="Sprite2D" parent="."]
@@ -69,6 +71,7 @@ shape = SubResource("RectangleShape2D_f2a6m")
 [node name="StaticBody2D_Treetop" type="StaticBody2D" parent="."]
 visible = false
 collision_layer = 0
+collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D_Treetop"]
 texture_filter = 1
