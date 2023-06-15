@@ -4,6 +4,8 @@ class_name WetPushThing
 
 const ZERO_MASS_PUSH_SPEED : float = 64.0
 const PLAYER_MASS : float = 1.0
+const FALL_INCR : float = 256.0
+const MAX_FALL : float = 128.0
 
 @export_node_path("Area2D") var path_area_top_space
 @export var mass : float = 1.0
@@ -12,6 +14,7 @@ const PLAYER_MASS : float = 1.0
 @onready var area_top_space : Area2D = get_node(path_area_top_space)
 
 var wetness : float = 0.0
+var fall_speed : float = 0.0
 
 func is_wet() -> bool:
 	return wetness > 0.0
@@ -65,15 +68,24 @@ func get_pushed(direction : Vector2, delta : float) -> float:
 
 func descend(distance : float) -> float:
 	var collision : KinematicCollision2D = move_and_collide(Vector2.DOWN * distance)
-	for thing in get_things_in_area(area_top_space):
-		thing.move_and_collide(Vector2.DOWN * distance)
-	if collision == null:
-		return 0.0
-	else:
-		return collision.get_remainder().length()
+	var remainder : float = 0.0
+	if collision != null:
+		remainder = collision.get_remainder().length()
+	var distance_moved = distance - remainder
+	if distance_moved > 0.0:
+		for thing in get_things_in_area(area_top_space):
+			if thing is Player and thing.current_state != thing.State.JUMPING:
+				thing.move_and_collide(Vector2.DOWN * distance_moved)
+			else:
+				thing.move_and_collide(Vector2.DOWN * distance_moved)
+	
+	return remainder
 
 func _physics_process(delta : float) -> void:
 	wetness = clamp(wetness - delta, 0.0, 0.1)
 	if not attached:
 		if !test_move(transform, Vector2.DOWN):
-			move_and_collide(Vector2.DOWN * 64.0 * delta)
+			fall_speed = clamp(fall_speed + (FALL_INCR * delta), 0.0, FALL_INCR)
+			move_and_collide(Vector2.DOWN * fall_speed * delta)
+		else:
+			fall_speed = 0.0

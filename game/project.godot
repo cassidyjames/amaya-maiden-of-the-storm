@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Mikostorm"
+run/main_scene="res://scenes/ident.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -59,3 +60,7 @@ change_wind={
 2d_physics/layer_2="Geometry"
 2d_physics/layer_3="Player"
 2d_physics/layer_4="Deadly"
+
+[rendering]
+
+renderer/rendering_method="mobile"
