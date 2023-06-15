@@ -27,7 +27,7 @@ func _process(delta : float) -> void:
 	heated = clamp(heated - delta, 0.0, 0.1)
 	
 	if temperature > 0.5:
-		water_capacity -= BOIL_RATE * delta
+		water_capacity = clamp(water_capacity - (BOIL_RATE * delta), 0.0, 1.0)
 	
 	sprite_level.modulate = lerp(Color("249fde"), Color("b4202a"), temperature)
 	sprite_level.frame = water_capacity * 6.0
