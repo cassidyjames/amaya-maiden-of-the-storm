@@ -24,11 +24,17 @@ var transition_amount : float = 0.0
 var current_level : int = 0
 var current_state : int = State.GAMEPLAY
 
+var level_time : float
+var level_deaths : int = 0
+var level_shifts : int
+
 func start_level() -> void:
 	level = LEVELS[current_level].instantiate()
 	add_child(level)
 	var tween : Tween = create_tween()
 	tween.tween_property(self, "transition_amount", 1.0, 0.5)
+	level_time = 0.0
+	level_shifts = 0
 	current_state = State.GAMEPLAY
 
 func end_level() -> void:
@@ -40,16 +46,26 @@ func end_level() -> void:
 	level.queue_free()
 
 func _on_level_clear() -> void:
-	current_level = wrapi(current_level + 1, 0, LEVELS.size())
+	GameSession.level_history[current_level] = {
+		"time": level_time, "deaths": level_deaths, "shifts": level_shifts
+	}
 	end_level()
 	level_indicator.show()
 	level_indicator.play(current_level)
 	await get_tree().create_timer(2.25).timeout
-	start_level()
-	await get_tree().create_timer(1.0).timeout
-	level_indicator.hide()
+	if current_level == 8:
+		get_tree().change_scene_to_file("res://scenes/ending.tscn")
+	else:
+		current_level += 1
+		start_level()
+		await get_tree().create_timer(1.0).timeout
+		level_indicator.hide()
+
+func _on_player_shift() -> void:
+	level_shifts += 1
 
 func _on_player_dead() -> void:
+	level_deaths += 1
 	await end_level()
 	await get_tree().create_timer(0.5).timeout
 	start_level()
@@ -63,12 +79,10 @@ func _input(event : InputEvent) -> void:
 		get_tree().paused = true
 
 func _process(delta : float) -> void:
+	level_time += delta
 	transition.material.set_shader_parameter("amount", transition_amount)
 
 func _ready() -> void:
 	AudioController.debug_start_ambience()
 	AudioController.play_music_dream()
-	level = LEVELS[0].instantiate()
-	add_child(level)
-	var tween : Tween = create_tween()
-	tween.tween_property(self, "transition_amount", 1.0, 0.5)
+	start_level()

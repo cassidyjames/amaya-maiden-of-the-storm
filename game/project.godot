@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 
 Settings="*res://scripts/settings.gd"
 AudioController="*res://objects/audio_controller.tscn"
+GameSession="*res://scripts/game_session.gd"
 
 [display]
 

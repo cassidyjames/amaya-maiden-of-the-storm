@@ -71,6 +71,15 @@ func do_the_run_thing(direction : Vector2, multiplier : float, flip_sprite : boo
 		sprite.frame = wrapi(anim_index, 20, 29)
 		anim_index += delta * 10.0
 
+func shift_wind(direction : Vector2, state : int) -> void:
+	get_tree().call_group("rainrow", "change_rain_direction", direction)
+	get_tree().call_group("game", "_on_player_shift")
+	sprite.flip_h = false
+	anim_index = 0.0
+	current_state = state
+	arrow_left.hide()
+	arrow_right.hide()
+
 func state_normal(delta : float) -> void:
 	if Input.is_action_pressed("run_right"):
 		do_the_run_thing(Vector2.RIGHT, 1.0, false, delta)
@@ -128,19 +137,9 @@ func state_wind_change(delta : float) -> void:
 	arrow_left.offset.x = sin(anim_index) * 4.0
 	arrow_right.offset.x = -sin(anim_index) * 4.0
 	if Input.is_action_just_pressed("run_left"):
-		get_tree().call_group("rainrow", "change_rain_direction", Vector2.LEFT)
-		sprite.flip_h = false
-		anim_index = 0.0
-		current_state = State.CHANGE_LEFT
-		arrow_left.hide()
-		arrow_right.hide()
+		shift_wind(Vector2.LEFT, State.CHANGE_LEFT)
 	elif Input.is_action_just_pressed("run_right"):
-		get_tree().call_group("rainrow", "change_rain_direction", Vector2.RIGHT)
-		sprite.flip_h = false
-		anim_index = 0.0
-		current_state = State.CHANGE_RIGHT
-		arrow_left.hide()
-		arrow_right.hide()
+		shift_wind(Vector2.RIGHT, State.CHANGE_RIGHT)
 	elif Input.is_action_just_pressed("change_wind"):
 		sprite.frame = 0
 		anim_index = 0.0

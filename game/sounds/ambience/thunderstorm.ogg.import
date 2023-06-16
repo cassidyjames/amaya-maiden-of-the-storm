@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/thunderstorm.ogg-6f8c98a5ce933820dbcb1a7fb20a
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0
