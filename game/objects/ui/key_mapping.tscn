@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5brbcp12iav8"]
+
+[ext_resource type="FontFile" uid="uid://dh6jcd5ewh62v" path="res://fonts/PixelOperator-Bold.ttf" id="1_1pp38"]
+[ext_resource type="Script" path="res://objects/ui/key_mapping.gd" id="1_jkbpm"]
+[ext_resource type="FontFile" uid="uid://bxolryalqsocr" path="res://fonts/PixelOperator.ttf" id="2_at1mc"]
+
+[node name="KeyMapping" type="Control"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1080.0
+offset_bottom = -700.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jkbpm")
+
+[node name="Label_Action" type="Label" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(120, 20)
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 19.0
+theme_override_fonts/font = ExtResource("1_1pp38")
+theme_override_font_sizes/font_size = 16
+text = "Move Left"
+
+[node name="Label_Key" type="Label" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 20)
+layout_mode = 0
+offset_left = 120.0
+offset_right = 200.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("2_at1mc")
+theme_override_font_sizes/font_size = 16
+text = "Backspace"
+horizontal_alignment = 2

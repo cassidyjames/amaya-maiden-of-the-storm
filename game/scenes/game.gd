@@ -1,5 +1,7 @@
 extends Node
 
+const _PauseScreen : PackedScene = preload("res://objects/ui/pause_screen.tscn")
+
 const LEVELS : Array = [
 	preload("res://levels/level1.tscn"),
 	preload("res://levels/level2.tscn"),
@@ -14,17 +16,23 @@ const LEVELS : Array = [
 var level : Node2D
 @onready var transition : Sprite2D = $Transition
 @onready var level_indicator : Node2D = $LevelIndicator
+@onready var canvas_layer : CanvasLayer = $CanvasLayer
+
+enum State {GAMEPLAY, NON_GAMEPLAY}
 
 var transition_amount : float = 0.0
 var current_level : int = 0
+var current_state : int = State.GAMEPLAY
 
 func start_level() -> void:
 	level = LEVELS[current_level].instantiate()
 	add_child(level)
 	var tween : Tween = create_tween()
 	tween.tween_property(self, "transition_amount", 1.0, 0.5)
+	current_state = State.GAMEPLAY
 
 func end_level() -> void:
+	current_state = State.NON_GAMEPLAY
 	var tween : Tween = create_tween()
 	tween.tween_property(self, "transition_amount", 0.0, 0.5)
 	await tween.finished
@@ -45,6 +53,14 @@ func _on_player_dead() -> void:
 	await end_level()
 	await get_tree().create_timer(0.5).timeout
 	start_level()
+
+func _input(event : InputEvent) -> void:
+	if current_state != State.GAMEPLAY:
+		return
+	if event.is_action_pressed("pause"):
+		var pause_screen : Control = _PauseScreen.instantiate()
+		canvas_layer.add_child(pause_screen)
+		get_tree().paused = true
 
 func _process(delta : float) -> void:
 	transition.material.set_shader_parameter("amount", transition_amount)

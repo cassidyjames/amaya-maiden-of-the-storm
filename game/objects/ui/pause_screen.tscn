@@ -1,0 +1,105 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwg3ia150ocqb"]
+
+[ext_resource type="FontFile" uid="uid://dh6jcd5ewh62v" path="res://fonts/PixelOperator-Bold.ttf" id="1_jchgq"]
+[ext_resource type="Script" path="res://objects/ui/pause_screen.gd" id="1_v086a"]
+[ext_resource type="Texture2D" uid="uid://c558hu4ho21oe" path="res://sprites/arrow.png" id="2_pjjlq"]
+
+[node name="PauseScreen" type="Control"]
+process_mode = 3
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -640.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v086a")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="VBox_Buttons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -38.0
+offset_right = 75.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Label" parent="VBox_Buttons"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("1_jchgq")
+text = "Resume"
+horizontal_alignment = 1
+
+[node name="Settings" type="Label" parent="VBox_Buttons"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("1_jchgq")
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="Controls" type="Label" parent="VBox_Buttons"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("1_jchgq")
+text = "Controls"
+horizontal_alignment = 1
+
+[node name="Exit" type="Label" parent="VBox_Buttons"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("1_jchgq")
+text = "Quit"
+horizontal_alignment = 1
+
+[node name="Cursor" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 245.0
+offset_top = 142.0
+offset_right = 395.0
+offset_bottom = 160.0
+
+[node name="ArrowLeft" type="TextureRect" parent="Cursor"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 19.0
+offset_bottom = 14.0
+texture = ExtResource("2_pjjlq")
+stretch_mode = 4
+
+[node name="ArrowRight" type="TextureRect" parent="Cursor"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 131.0
+offset_top = 5.0
+offset_right = 140.0
+offset_bottom = 14.0
+texture = ExtResource("2_pjjlq")
+stretch_mode = 4
+flip_h = true
