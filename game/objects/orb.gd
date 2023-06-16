@@ -1,5 +1,7 @@
 extends Area2D
 
+const _SpriteParticles : PackedScene = preload("res://objects/sprite_particle.tscn")
+
 const FOLLOW_SPEED : float = 3.0
 const LAUNCH_SPEED : float = 128.0
 const FALL_ACCEL : float = 512.0
@@ -25,6 +27,11 @@ func _on_timer_next_frame_timeout() -> void:
 		sprite.frame = 0
 	else:
 		sprite.frame += 1
+	var sprite_particle : Sprite2D = _SpriteParticles.instantiate()
+	get_parent().add_child(sprite_particle)
+	sprite_particle.setup("spark1" if randf() > 0.5 else "spark2")
+	sprite_particle.global_position = global_position + Vector2(randf_range(-8.0, 8.0), randf_range(-8.0, 8.0))
+	sprite_particle.velocity = Vector2.DOWN * randf_range(32.0, 96.0)
 
 func _on_player_hit() -> void:
 	if current_state != State.FOLLOWING: return

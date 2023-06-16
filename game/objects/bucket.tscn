@@ -37,3 +37,9 @@ position = Vector2(0, 12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_TopSpace"]
 shape = SubResource("RectangleShape2D_tm81g")
+
+[node name="Timer_EmitSpiral" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="Timer_EmitSpiral" to="." method="_on_timer_emit_spiral_timeout"]

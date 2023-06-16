@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://brfodt6ah0wn7"]
+
+[ext_resource type="Texture2D" uid="uid://eswpjnbnmn3q" path="res://sprites/particles.png" id="1_0pqdj"]
+[ext_resource type="Script" path="res://objects/sprite_particle.gd" id="2_44isr"]
+
+[node name="SpriteParticle" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_0pqdj")
+hframes = 8
+vframes = 12
+script = ExtResource("2_44isr")
+
+[node name="Timer_NextFrame" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="Timer_Timeout" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Timer_NextFrame" to="." method="_on_timer_next_frame_timeout"]
+[connection signal="timeout" from="Timer_Timeout" to="." method="_on_timer_timeout_timeout"]
