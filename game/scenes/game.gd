@@ -66,6 +66,8 @@ func _process(delta : float) -> void:
 	transition.material.set_shader_parameter("amount", transition_amount)
 
 func _ready() -> void:
+	AudioController.debug_start_ambience()
+	AudioController.play_music_dream()
 	level = LEVELS[0].instantiate()
 	add_child(level)
 	var tween : Tween = create_tween()

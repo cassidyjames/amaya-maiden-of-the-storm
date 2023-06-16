@@ -31,7 +31,7 @@ func apply_keybinding(action_name : String, keyboard_code : int) -> void:
 	mappings[action_name] = keyboard_code
 
 func apply_config() -> void:
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if fullscreen else DisplayServer.WINDOW_MODE_WINDOWED)
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN if fullscreen else DisplayServer.WINDOW_MODE_WINDOWED)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if show_mouse_cursor else Input.MOUSE_MODE_HIDDEN
 	change_bus_volume("SFX", sfx_volume)
 	change_bus_volume("BGM", bgm_volume)
@@ -64,7 +64,7 @@ func save_config() -> void:
 
 func load_config() -> void:
 	config.load(CONFIG_PATH)
-	fullscreen = config.get_value("graphics", "fullscreen", false)
+	fullscreen = config.get_value("graphics", "fullscreen", true)
 	show_mouse_cursor = config.get_value("graphics", "show_mouse_cursor", false)
 	sfx_volume = config.get_value("audio", "sfx_volume", 1.0)
 	bgm_volume = config.get_value("audio", "bgm_volume", 1.0)

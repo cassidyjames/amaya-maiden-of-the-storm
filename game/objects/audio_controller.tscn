@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://dahum0mef3nx5"]
+
+[ext_resource type="Script" path="res://objects/audio_controller.gd" id="1_g30xe"]
+[ext_resource type="AudioStream" uid="uid://dcog8u3iskc2o" path="res://music/dream.ogg" id="1_o55bi"]
+[ext_resource type="AudioStream" uid="uid://bodlq4buxhvam" path="res://music/wind.ogg" id="2_wgyiy"]
+[ext_resource type="AudioStream" uid="uid://dc36a7pc5dhag" path="res://sounds/ambience/thunderstorm.ogg" id="4_frk5c"]
+[ext_resource type="AudioStream" uid="uid://ds6l638wph4hb" path="res://sounds/ambience/rain.ogg" id="5_q07r0"]
+
+[node name="AudioController" type="Node"]
+script = ExtResource("1_g30xe")
+
+[node name="Ambience_Thunder" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_frk5c")
+bus = &"AMB"
+
+[node name="Ambience_Rain" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_q07r0")
+volume_db = -5.0
+bus = &"AMB"
+
+[node name="Music_Dream" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_o55bi")
+bus = &"BGM"
+
+[node name="Music_Wind" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_wgyiy")
+bus = &"BGM"
