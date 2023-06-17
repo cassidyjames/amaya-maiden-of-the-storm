@@ -11,7 +11,10 @@ func _process(delta : float) -> void:
 	sprite.region_rect.position.y -= fall_speed * delta
 	if is_colliding():
 		var beam_length : float = (get_collision_point() - global_position).length()
-		sprite.region_rect.size.y = beam_length / 8.0
+		if beam_length > 20.0:
+			sprite.region_rect.size.y = beam_length / 8.0
+		else:
+			sprite.region_rect.size.y = 0.0
 		if get_collider() is Player:
 			get_collider().get_hit_with_rain()
 		elif rain_refresh <= 0.0 and get_collision_normal() == Vector2.UP and get_collision_point().y > 32.0:
