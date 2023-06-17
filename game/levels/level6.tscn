@@ -43,6 +43,7 @@ path_right_object = NodePath("../Bridge")
 
 [node name="Gate" parent="." instance=ExtResource("8_r6jvc")]
 position = Vector2(192, 224)
+mass = 4.0
 attached = true
 
 [node name="Bridge" parent="." instance=ExtResource("8_kc4bm")]
