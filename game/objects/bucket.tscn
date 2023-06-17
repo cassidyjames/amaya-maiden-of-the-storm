@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtxphweoy247o"]
+[gd_scene load_steps=7 format=3 uid="uid://dtxphweoy247o"]
 
 [ext_resource type="Script" path="res://objects/bucket.gd" id="1_d45jf"]
 [ext_resource type="Texture2D" uid="uid://bhhhh3cj68psl" path="res://sprites/bucket.png" id="1_dsbun"]
 [ext_resource type="Texture2D" uid="uid://chbq18vav3dhs" path="res://sprites/bucket_level.png" id="2_gstba"]
+[ext_resource type="AudioStream" uid="uid://di6updtiqc1d8" path="res://sounds/bucket_boil.wav" id="4_mtldx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nuuw6"]
 size = Vector2(28, 18)
@@ -41,5 +42,9 @@ shape = SubResource("RectangleShape2D_tm81g")
 [node name="Timer_EmitSpiral" type="Timer" parent="."]
 wait_time = 0.2
 autostart = true
+
+[node name="Audio_Boil" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_mtldx")
+bus = &"SFX"
 
 [connection signal="timeout" from="Timer_EmitSpiral" to="." method="_on_timer_emit_spiral_timeout"]
