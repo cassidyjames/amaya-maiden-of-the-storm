@@ -55,7 +55,7 @@ func do_horizontal_movement(delta : float) -> void:
 		if normal in [Vector2.LEFT, Vector2.RIGHT]:
 			if collision.get_collider().is_in_group("wet_push_thing") and current_state == State.NORMAL:
 				collision.get_collider().get_pushed(normal * Vector2(-1, 0), delta)
-				sprite.frame = wrapi(anim_index, 30, 37)
+				sprite.frame = wrapi(anim_index, 20, 28)
 			else:
 				velocity.x = 0.0
 
@@ -68,21 +68,22 @@ func do_vertical_movement(delta : float) -> void:
 		elif normal == Vector2.UP and current_state == State.JUMPING:
 			velocity.y = 0.0
 			current_state = State.NORMAL
+			anim_index = 0.0
 
 func do_the_run_thing(direction : Vector2, multiplier : float, flip_sprite : bool, delta : float) -> void:
 	velocity.x = clamp(velocity.x + (direction.x * multiplier * RUN_ACCEL * delta), -RUN_SPEED, RUN_SPEED)
 	sprite.flip_h = flip_sprite
 	if current_state == State.NORMAL:
-		sprite.frame = wrapi(anim_index, 20, 30)
+		sprite.frame = wrapi(anim_index, 10, 20)
 		anim_index += delta * 10.0
-		if (sprite.frame == 21 or sprite.frame == 26) and rundust_cooldown == 0.0:
+		if (sprite.frame == 11 or sprite.frame == 16) and rundust_cooldown == 0.0:
 			emit_run_particle()
 			rundust_cooldown = 0.2
 
 func shift_wind(direction : Vector2, state : int) -> void:
 	get_tree().call_group("rainrow", "change_rain_direction", direction)
 	get_tree().call_group("game", "_on_player_shift")
-	sprite.flip_h = false
+	sprite.flip_h = direction == Vector2.RIGHT
 	anim_index = 0.0
 	current_state = state
 	arrow_left.hide()
@@ -103,7 +104,6 @@ func emit_run_particle() -> void:
 	get_parent().add_child(sprite_particle)
 	sprite_particle.setup("rundust")
 	sprite_particle.global_position = global_position + Vector2(-12.0 * direction.x, -6)
-	#sprite_particle.velocity = direction * 128.0
 	sprite_particle.flip_h = sprite.flip_h
 
 func state_normal(delta : float) -> void:
@@ -112,17 +112,30 @@ func state_normal(delta : float) -> void:
 	elif Input.is_action_pressed("run_left"):
 		do_the_run_thing(Vector2.LEFT, 1.0, true, delta)
 	else:
+		if Input.is_action_just_released("run_left") or Input.is_action_just_released("run_right"):
+			anim_index = 0.0
+		else:
+			anim_index += delta
 		velocity.x = move_toward(velocity.x, 0.0, RUN_DECEL * delta)
-		sprite.frame = 0
-		anim_index = 0.0
+		if anim_index > 12.0:
+			anim_index = 0.0
+		elif anim_index > 8.0:
+			sprite.frame = clampi((anim_index - 8.0) * 10.0, 5, 8)
+		elif anim_index > 4.0:
+			sprite.frame = clampi((anim_index - 4.0) * 10.0, 1, 4)
+		else:
+			sprite.frame = 0
 	
 	if !test_move(transform, Vector2.DOWN):
 		current_state = State.JUMPING
+		anim_index = 0.0
 		coyote_time = 0.5
 	else:
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = -JUMP
 			current_state = State.JUMPING
+			anim_index = 0.0
+			sprite.frame = 50
 			emit_jump_particles()
 		elif Input.is_action_just_pressed("change_wind"):
 			current_state = State.WIND_CHANGE
@@ -135,7 +148,11 @@ func state_normal(delta : float) -> void:
 
 func state_jumping(delta : float) -> void:
 	if coyote_time <= 0.0:
-		sprite.frame = 20
+		if velocity.y > 0.0:
+			sprite.frame = 51 + clamp(anim_index, 0, 1)
+			anim_index += delta * 10.0
+		else:
+			sprite.frame = 50
 	
 	if Input.is_action_pressed("run_right"):
 		do_the_run_thing(Vector2.RIGHT, 0.5, false, delta)
@@ -147,6 +164,7 @@ func state_jumping(delta : float) -> void:
 	if coyote_time > 0.0 and Input.is_action_just_pressed("jump"):
 		velocity.y = -JUMP
 		current_state = State.JUMPING
+		anim_index = 0.0
 	else:
 		if !Input.is_action_pressed("jump"):
 			velocity.y = clamp(velocity.y + (FALL_INCR * delta), -MAX_FALL / 2.0, MAX_FALL)
@@ -160,7 +178,7 @@ func state_jumping(delta : float) -> void:
 
 func state_wind_change(delta : float) -> void:
 	anim_index += delta * 10.0
-	sprite.frame = 10 + clampf(anim_index, 0.0, 1.0)
+	sprite.frame = 30 + clampf(anim_index, 0.0, 1.0)
 	arrow_left.offset.x = sin(anim_index) * 4.0
 	arrow_right.offset.x = -sin(anim_index) * 4.0
 	if Input.is_action_just_pressed("run_left"):
@@ -175,17 +193,17 @@ func state_wind_change(delta : float) -> void:
 		arrow_right.hide()
 
 func state_change_left(delta : float) -> void:
-	anim_index += delta * 10.0
-	sprite.frame = 3 + clampf(anim_index, 0.0, 1.0)
-	if anim_index > 20.0:
+	anim_index += delta
+	sprite.frame = 32 + clamp(anim_index * 15.0, 0, 13)
+	if anim_index > 2.0:
 		sprite.flip_h = true
 		sprite.frame = 0
 		current_state = State.NORMAL
 
 func state_change_right(delta : float) -> void:
-	anim_index += delta * 10.0
-	sprite.frame = 5 + clampf(anim_index, 0.0, 1.0)
-	if anim_index > 20.0:
+	anim_index += delta
+	sprite.frame = 32 + clamp(anim_index * 15.0, 0, 13)
+	if anim_index > 2.0:
 		sprite.flip_h = false
 		sprite.frame = 0
 		current_state = State.NORMAL

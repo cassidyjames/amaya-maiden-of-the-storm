@@ -22,12 +22,13 @@ position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_1xxlt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 15
 texture_filter = 1
 material = SubResource("ShaderMaterial_gax2p")
 texture = ExtResource("1_cdcfq")
-offset = Vector2(0, -18)
+offset = Vector2(0, -14)
 hframes = 10
-vframes = 4
+vframes = 7
 region_rect = Rect2(0, 0, 32, 40)
 
 [node name="OrbFloatPoint" type="Node2D" parent="."]
