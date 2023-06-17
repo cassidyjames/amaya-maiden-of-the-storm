@@ -27,6 +27,7 @@ var shine_a : float = 0.0
 var shine_b : float = 0.0
 var spawn_invuln : float = 0.1
 var coyote_time : float = 0.0
+var rundust_cooldown : float = 0.0
 
 func get_hit_with_rain() -> void:
 	if current_state == State.HIT or spawn_invuln > 0.0: return
@@ -72,8 +73,11 @@ func do_the_run_thing(direction : Vector2, multiplier : float, flip_sprite : boo
 	velocity.x = clamp(velocity.x + (direction.x * multiplier * RUN_ACCEL * delta), -RUN_SPEED, RUN_SPEED)
 	sprite.flip_h = flip_sprite
 	if current_state == State.NORMAL:
-		sprite.frame = wrapi(anim_index, 20, 29)
+		sprite.frame = wrapi(anim_index, 20, 30)
 		anim_index += delta * 10.0
+		if (sprite.frame == 21 or sprite.frame == 26) and rundust_cooldown == 0.0:
+			emit_run_particle()
+			rundust_cooldown = 0.2
 
 func shift_wind(direction : Vector2, state : int) -> void:
 	get_tree().call_group("rainrow", "change_rain_direction", direction)
@@ -83,6 +87,24 @@ func shift_wind(direction : Vector2, state : int) -> void:
 	current_state = state
 	arrow_left.hide()
 	arrow_right.hide()
+
+func emit_jump_particles() -> void:
+	for direction in [Vector2.LEFT, Vector2.RIGHT]:
+		var sprite_particle : Sprite2D = _SpriteParticles.instantiate()
+		get_parent().add_child(sprite_particle)
+		sprite_particle.setup("jumpdust")
+		sprite_particle.global_position = global_position + Vector2(8 * direction.x, -8)
+		sprite_particle.velocity = direction * 64.0
+		sprite_particle.flip_h = direction == Vector2.LEFT
+
+func emit_run_particle() -> void:
+	var direction : Vector2 = Vector2.LEFT if sprite.flip_h else Vector2.RIGHT
+	var sprite_particle : Sprite2D = _SpriteParticles.instantiate()
+	get_parent().add_child(sprite_particle)
+	sprite_particle.setup("rundust")
+	sprite_particle.global_position = global_position + Vector2(-12.0 * direction.x, -6)
+	#sprite_particle.velocity = direction * 128.0
+	sprite_particle.flip_h = sprite.flip_h
 
 func state_normal(delta : float) -> void:
 	if Input.is_action_pressed("run_right"):
@@ -101,6 +123,7 @@ func state_normal(delta : float) -> void:
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = -JUMP
 			current_state = State.JUMPING
+			emit_jump_particles()
 		elif Input.is_action_just_pressed("change_wind"):
 			current_state = State.WIND_CHANGE
 			anim_index = 0.0
@@ -187,3 +210,4 @@ func _physics_process(delta : float) -> void:
 	sprite.material.set_shader_parameter("shine_a", shine_a)
 	sprite.material.set_shader_parameter("shine_b", shine_b)
 	spawn_invuln = clamp(spawn_invuln - delta, 0.0, 0.1)
+	rundust_cooldown = clamp(rundust_cooldown - delta, 0.0, 0.2)

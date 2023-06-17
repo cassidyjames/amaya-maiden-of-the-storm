@@ -8,6 +8,8 @@ const PARTICLE_TYPES : Dictionary = {
 	"spark1": [32, 35, 0.05, -1, false],
 	"spark2": [40, 43, 0.05, -1, false],
 	"deathspark": [80, 87, 0.05, -1, false],
+	"jumpdust": [64, 68, 0.05, -1, false],
+	"rundust": [72, 75, 0.1, -1, false],
 	"deathorb": [48, 54, 0.05, -1, false],
 }
 

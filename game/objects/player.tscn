@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c558hu4ho21oe" path="res://sprites/arrow.png" id="4_w8tc3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1xxlt"]
-size = Vector2(10, 30)
+size = Vector2(10, 26)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gax2p"]
 shader = ExtResource("2_233vt")
@@ -18,7 +18,7 @@ collision_mask = 2
 script = ExtResource("1_smei0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -15)
+position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_1xxlt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
