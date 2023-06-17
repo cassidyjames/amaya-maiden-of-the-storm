@@ -5,6 +5,8 @@ const ORB_OFFSET : float = (PI * 2) / ORB_COUNT
 
 @onready var orb : Sprite2D = $Orb
 @onready var orbs : Array = [orb]
+@onready var audio_all_clear : AudioStreamPlayer = $Audio_AllClear
+@onready var whiteout : Polygon2D = $Whiteout
 
 var orb_rotation : float = 0.0
 var orb_radius : float = 380.0
@@ -22,11 +24,13 @@ func play(orbs_lit : int) -> void:
 func play_ending() -> void:
 	for i in range(0, ORB_COUNT):
 		orbs[i].modulate = Color.WHITE
-			
+	audio_all_clear.play()
 	var tween : Tween = create_tween()
 	tween.tween_property(self, "orb_radius", 60.0, 1.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_interval(4.0)
+	tween.tween_property(self, "orb_raise", 8.0, 12.0).set_trans(Tween.TRANS_LINEAR)
 	tween.tween_interval(1.0)
-	tween.tween_property(self, "orb_raise", 8.0, 8.0).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(whiteout, "modulate", Color.WHITE, 1.0).set_trans(Tween.TRANS_LINEAR)
 
 func _physics_process(delta : float) -> void:
 	orb_rotation += delta * 2.0

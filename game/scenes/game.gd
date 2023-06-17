@@ -55,7 +55,7 @@ func _on_level_clear() -> void:
 		AudioController.stop_game_ambience()
 		level_indicator.show()
 		level_indicator.play_ending()
-		await get_tree().create_timer(11.0).timeout
+		await get_tree().create_timer(24.0).timeout
 		get_tree().change_scene_to_file("res://scenes/ending.tscn")
 	else:
 		AudioController.duck_ambience_next_level()

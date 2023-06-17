@@ -47,8 +47,8 @@ func duck_ambience_restart_level() -> void:
 
 func stop_game_ambience() -> void:
 	var tween : Tween = create_tween().set_parallel()
-	tween.tween_property(ambience_thunder, "volume_db", -40.0, 8.0)
-	tween.tween_property(ambience_rain, "volume_db", -40.0, 2.0)
+	tween.tween_property(ambience_thunder, "volume_db", -40.0, 1.0)
+	tween.tween_property(ambience_rain, "volume_db", -40.0, 1.0)
 
 func _on_level_started() -> void:
 	match music_state:

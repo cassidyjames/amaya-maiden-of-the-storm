@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://blr3hvyogxr3u"]
+[gd_scene load_steps=4 format=3 uid="uid://blr3hvyogxr3u"]
 
 [ext_resource type="Script" path="res://objects/level_indicator.gd" id="1_fpfyh"]
 [ext_resource type="Texture2D" uid="uid://bfqca3v5t526y" path="res://sprites/orb.png" id="1_wxph4"]
+[ext_resource type="AudioStream" uid="uid://p7lbo3a6qcdb" path="res://sounds/all_clear.ogg" id="3_nx7iu"]
 
 [node name="LevelIndicator" type="Node2D"]
 script = ExtResource("1_fpfyh")
@@ -14,3 +15,11 @@ hframes = 4
 [node name="Camera2D" type="Camera2D" parent="."]
 enabled = false
 zoom = Vector2(2, 2)
+
+[node name="Audio_AllClear" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_nx7iu")
+bus = &"SFX"
+
+[node name="Whiteout" type="Polygon2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-320, -240, 320, -240, 320, 240, -320, 240)
