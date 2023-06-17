@@ -10,7 +10,8 @@ script = ExtResource("1_fpfyh")
 [node name="Orb" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_wxph4")
-hframes = 4
+hframes = 9
+vframes = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 enabled = false
@@ -23,3 +24,9 @@ bus = &"SFX"
 [node name="Whiteout" type="Polygon2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(-320, -240, 320, -240, 320, 240, -320, 240)
+
+[node name="Timer_NextFrame" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer_NextFrame" to="." method="_on_timer_next_frame_timeout"]

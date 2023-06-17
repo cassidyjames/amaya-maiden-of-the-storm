@@ -15,7 +15,8 @@ shape = SubResource("CircleShape2D_fp5pc")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_148eb")
-hframes = 4
+hframes = 9
+vframes = 2
 
 [node name="Timer_NextFrame" type="Timer" parent="."]
 wait_time = 0.1

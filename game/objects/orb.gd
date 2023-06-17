@@ -23,10 +23,7 @@ func _on_body_entered(body) -> void:
 		current_state = State.FOLLOWING
 
 func _on_timer_next_frame_timeout() -> void:
-	if sprite.frame == 3:
-		sprite.frame = 0
-	else:
-		sprite.frame += 1
+	sprite.frame = wrapi(sprite.frame + 1, 0, 18)
 	var sprite_particle : Sprite2D = _SpriteParticles.instantiate()
 	get_parent().add_child(sprite_particle)
 	sprite_particle.setup("spark1" if randf() > 0.5 else "spark2")
