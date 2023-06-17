@@ -33,6 +33,7 @@ texture = ExtResource("1_8fdwu")
 offset = Vector2(0, 16)
 
 [node name="Flame" type="Sprite2D" parent="."]
+texture_filter = 1
 material = SubResource("ShaderMaterial_3sx4r")
 position = Vector2(0, -16)
 texture = ExtResource("3_3x4o6")
