@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://dh5q7o1myw66j"]
+[gd_scene load_steps=11 format=3 uid="uid://dh5q7o1myw66j"]
 
 [ext_resource type="Texture2D" uid="uid://b26fx2gx75hdq" path="res://sprites/player.png" id="1_cdcfq"]
 [ext_resource type="Script" path="res://objects/player.gd" id="1_smei0"]
 [ext_resource type="Shader" path="res://shaders/player.gdshader" id="2_233vt"]
 [ext_resource type="Texture2D" uid="uid://c558hu4ho21oe" path="res://sprites/arrow.png" id="4_w8tc3"]
+[ext_resource type="AudioStream" uid="uid://drlic7hpx0miq" path="res://sounds/player_footstep1.wav" id="5_wxx16"]
+[ext_resource type="AudioStream" uid="uid://3t44ttnq3q08" path="res://sounds/player_footstep2.wav" id="6_4w0pw"]
+[ext_resource type="AudioStream" uid="uid://bv6keq2r60r0k" path="res://sounds/player_land.wav" id="7_3co7p"]
+[ext_resource type="AudioStream" uid="uid://br04drh7vaaw0" path="res://sounds/player_jump.wav" id="7_fk54b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1xxlt"]
 size = Vector2(10, 26)
@@ -49,5 +53,25 @@ texture = ExtResource("4_w8tc3")
 
 [node name="Timer_SpawnDeathSpark" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="Audio_Footstep1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_wxx16")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="Audio_Footstep2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_4w0pw")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="Audio_Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_fk54b")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="Audio_Land" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_3co7p")
+volume_db = -5.0
+bus = &"SFX"
 
 [connection signal="timeout" from="Timer_SpawnDeathSpark" to="." method="_on_timer_spawn_death_spark_timeout"]

@@ -16,6 +16,10 @@ const MAX_FALL : float = 160.0
 @onready var arrow_left : Sprite2D = $Arrow_Left
 @onready var arrow_right : Sprite2D = $Arrow_Right
 @onready var timer_spawn_death_spark : Timer = $Timer_SpawnDeathSpark
+@onready var audio_footstep1 : AudioStreamPlayer = $Audio_Footstep1
+@onready var audio_footstep2 : AudioStreamPlayer = $Audio_Footstep2
+@onready var audio_jump : AudioStreamPlayer = $Audio_Jump
+@onready var audio_land : AudioStreamPlayer = $Audio_Land
 
 enum State {NORMAL, JUMPING, WIND_CHANGE, CHANGE_LEFT, CHANGE_RIGHT, HIT}
 
@@ -28,6 +32,7 @@ var shine_b : float = 0.0
 var spawn_invuln : float = 0.1
 var coyote_time : float = 0.0
 var rundust_cooldown : float = 0.0
+var which_footstep : bool = false
 
 func get_hit_with_rain() -> void:
 	if current_state == State.HIT or spawn_invuln > 0.0: return
@@ -69,6 +74,7 @@ func do_vertical_movement(delta : float) -> void:
 			velocity.y = 0.0
 			current_state = State.NORMAL
 			anim_index = 0.0
+			audio_land.play()
 
 func do_the_run_thing(direction : Vector2, multiplier : float, flip_sprite : bool, delta : float) -> void:
 	velocity.x = clamp(velocity.x + (direction.x * multiplier * RUN_ACCEL * delta), -RUN_SPEED, RUN_SPEED)
@@ -105,6 +111,11 @@ func emit_run_particle() -> void:
 	sprite_particle.setup("rundust")
 	sprite_particle.global_position = global_position + Vector2(-12.0 * direction.x, -6)
 	sprite_particle.flip_h = sprite.flip_h
+	if which_footstep:
+		audio_footstep1.play()
+	else:
+		audio_footstep2.play()
+	which_footstep = !which_footstep
 
 func state_normal(delta : float) -> void:
 	if Input.is_action_pressed("run_right"):
@@ -137,6 +148,7 @@ func state_normal(delta : float) -> void:
 			anim_index = 0.0
 			sprite.frame = 50
 			emit_jump_particles()
+			audio_jump.play()
 		elif Input.is_action_just_pressed("change_wind"):
 			current_state = State.WIND_CHANGE
 			anim_index = 0.0
@@ -165,6 +177,7 @@ func state_jumping(delta : float) -> void:
 		velocity.y = -JUMP
 		current_state = State.JUMPING
 		anim_index = 0.0
+		audio_jump.play()
 	else:
 		if !Input.is_action_pressed("jump"):
 			velocity.y = clamp(velocity.y + (FALL_INCR * delta), -MAX_FALL / 2.0, MAX_FALL)
