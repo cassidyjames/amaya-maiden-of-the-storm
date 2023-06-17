@@ -33,10 +33,14 @@ func apply_keybinding(action_name : String, keyboard_code : int) -> void:
 func apply_config() -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN if fullscreen else DisplayServer.WINDOW_MODE_WINDOWED)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if show_mouse_cursor else Input.MOUSE_MODE_HIDDEN
+
+func apply_volumes() -> void:
 	change_bus_volume("SFX", sfx_volume)
 	change_bus_volume("BGM", bgm_volume)
 	change_bus_volume("AMB", amb_volume)
 	change_bus_volume("UI", ui_volume)
+
+func apply_keybindings() -> void:
 	for action in ACTIONS:
 		apply_keybinding(action, mappings[action])
 

@@ -46,22 +46,26 @@ func handle_volume_change(change : float) -> void:
 	match action:
 		"bgm":
 			Settings.bgm_volume = clamp(Settings.bgm_volume + change, 0.0, 1.0)
-			Settings.apply_config()
+			Settings.bgm_volume = round(Settings.bgm_volume * 10.0) / 10.0
+			Settings.apply_volumes()
 			Settings.save_config()
 			vbox_settings.get_child(cursor_index).set_key(str(int(Settings.bgm_volume * 100.0)) + "%")
 		"sfx":
 			Settings.sfx_volume = clamp(Settings.sfx_volume + change, 0.0, 1.0)
-			Settings.apply_config()
+			Settings.sfx_volume = round(Settings.sfx_volume * 10.0) / 10.0
+			Settings.apply_volumes()
 			Settings.save_config()
 			vbox_settings.get_child(cursor_index).set_key(str(int(Settings.sfx_volume * 100.0)) + "%")
 		"amb":
 			Settings.amb_volume = clamp(Settings.amb_volume + change, 0.0, 1.0)
-			Settings.apply_config()
+			Settings.amb_volume = round(Settings.amb_volume * 10.0) / 10.0
+			Settings.apply_volumes()
 			Settings.save_config()
 			vbox_settings.get_child(cursor_index).set_key(str(int(Settings.amb_volume * 100.0)) + "%")
 		"ui":
 			Settings.ui_volume = clamp(Settings.ui_volume + change, 0.0, 1.0)
-			Settings.apply_config()
+			Settings.ui_volume = round(Settings.ui_volume * 10.0) / 10.0
+			Settings.apply_volumes()
 			Settings.save_config()
 			vbox_settings.get_child(cursor_index).set_key(str(int(Settings.ui_volume * 100.0)) + "%")
 
