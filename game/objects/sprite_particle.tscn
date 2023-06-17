@@ -7,7 +7,7 @@
 texture_filter = 1
 texture = ExtResource("1_0pqdj")
 hframes = 8
-vframes = 12
+vframes = 16
 script = ExtResource("2_44isr")
 
 [node name="Timer_NextFrame" type="Timer" parent="."]

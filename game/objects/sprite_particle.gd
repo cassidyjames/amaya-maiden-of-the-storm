@@ -11,6 +11,8 @@ const PARTICLE_TYPES : Dictionary = {
 	"jumpdust": [64, 68, 0.05, -1, false],
 	"rundust": [72, 75, 0.1, -1, false],
 	"deathorb": [48, 54, 0.05, -1, false],
+	"ember1": [88, 95, 0.1, -1, false],
+	"ember2": [96, 103, 0.2, -1, false],
 }
 
 @onready var timer_nextframe : Timer = $Timer_NextFrame

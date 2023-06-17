@@ -15,11 +15,18 @@ func _on_area_2d_flame_body_entered(body) -> void:
 	if body is Player and health > 0:
 		body.get_hit_with_rain()
 
-func _on_timer_emit_steam_timeout() -> void:
+func _on_timer_emit_particle_timeout() -> void:
 	if is_wet() and health > 0.0:
 		var sprite_particle : Sprite2D = _SpriteParticles.instantiate()
 		get_parent().add_child(sprite_particle)
 		sprite_particle.setup("steam1" if randf() > 0.5 else "steam2")
+		sprite_particle.global_position = global_position + Vector2(randf_range(-8.0, 8.0), 0.0)
+		sprite_particle.velocity = Vector2.UP.rotated(randf_range(-0.1, 0.1)) * randf_range(32.0, 96.0)
+		sprite_particle.z_index = -20
+	if health > 0.5:
+		var sprite_particle : Sprite2D = _SpriteParticles.instantiate()
+		get_parent().add_child(sprite_particle)
+		sprite_particle.setup("ember1" if randf() > 0.5 else "ember2")
 		sprite_particle.global_position = global_position + Vector2(randf_range(-8.0, 8.0), 0.0)
 		sprite_particle.velocity = Vector2.UP * randf_range(32.0, 96.0)
 		sprite_particle.z_index = -20
