@@ -7,9 +7,9 @@ const _SpriteParticles : PackedScene = preload("res://objects/sprite_particle.ts
 const RUN_SPEED : float = 80.0
 const RUN_ACCEL : float = 512.0
 const RUN_DECEL : float = 512.0
-const JUMP : float = 240.0
-const FALL_INCR : float = 280.0
-const MAX_FALL : float = 160.0
+const JUMP : float = 160.0
+const FALL_INCR : float = 240.0
+const MAX_FALL : float = 320.0
 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var orb_float_point : Node2D = $OrbFloatPoint
@@ -21,7 +21,7 @@ const MAX_FALL : float = 160.0
 @onready var audio_jump : AudioStreamPlayer = $Audio_Jump
 @onready var audio_land : AudioStreamPlayer = $Audio_Land
 
-enum State {NORMAL, JUMPING, WIND_CHANGE, CHANGE_LEFT, CHANGE_RIGHT, HIT}
+enum State {NORMAL, JUMPING, LANDING, WIND_CHANGE, CHANGE_LEFT, CHANGE_RIGHT, HIT}
 
 var current_state : int = State.NORMAL
 var has_orb : bool = false
@@ -71,8 +71,12 @@ func do_vertical_movement(delta : float) -> void:
 		if normal == Vector2.DOWN:
 			velocity.y = 0.0
 		elif normal == Vector2.UP and current_state == State.JUMPING:
+			if velocity.y >= 200:
+				current_state = State.LANDING
+			else:
+				current_state = State.NORMAL
+			print(velocity.y)
 			velocity.y = 0.0
-			current_state = State.NORMAL
 			anim_index = 0.0
 			audio_land.play()
 
@@ -180,7 +184,7 @@ func state_jumping(delta : float) -> void:
 		audio_jump.play()
 	else:
 		if !Input.is_action_pressed("jump"):
-			velocity.y = clamp(velocity.y + (FALL_INCR * delta), -MAX_FALL / 2.0, MAX_FALL)
+			velocity.y = clamp(velocity.y + (FALL_INCR * delta), -MAX_FALL / 4.0, MAX_FALL)
 		else:
 			velocity.y = clamp(velocity.y + (FALL_INCR * delta), -MAX_FALL, MAX_FALL)
 	
@@ -188,6 +192,14 @@ func state_jumping(delta : float) -> void:
 	
 	do_horizontal_movement(delta)
 	do_vertical_movement(delta)
+
+func state_landing(delta : float) -> void:
+	anim_index += delta * 10.0
+	if anim_index >= 4.0:
+		current_state = State.NORMAL
+		anim_index = 0.0
+	else:
+		sprite.frame = 53 + clamp(anim_index, 0.0, 2.0)
 
 func state_wind_change(delta : float) -> void:
 	anim_index += delta * 10.0
@@ -233,6 +245,7 @@ func _on_timer_spawn_death_spark_timeout() -> void:
 func _physics_process(delta : float) -> void:
 	match current_state:
 		State.NORMAL: state_normal(delta)
+		State.LANDING: state_landing(delta)
 		State.JUMPING: state_jumping(delta)
 		State.WIND_CHANGE: state_wind_change(delta)
 		State.CHANGE_LEFT: state_change_left(delta)
