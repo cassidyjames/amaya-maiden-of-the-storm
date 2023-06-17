@@ -8,6 +8,7 @@ const ORB_OFFSET : float = (PI * 2) / ORB_COUNT
 
 var orb_rotation : float = 0.0
 var orb_radius : float = 380.0
+var orb_raise : float = 0.0
 
 func play(orbs_lit : int) -> void:
 	for i in range(0, ORB_COUNT):
@@ -18,10 +19,22 @@ func play(orbs_lit : int) -> void:
 	tween.tween_interval(1.0)
 	tween.tween_property(self, "orb_radius", 380.0, 1.0).set_trans(Tween.TRANS_CUBIC)
 
+func play_ending() -> void:
+	for i in range(0, ORB_COUNT):
+		orbs[i].modulate = Color.WHITE
+			
+	var tween : Tween = create_tween()
+	tween.tween_property(self, "orb_radius", 60.0, 1.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_interval(1.0)
+	tween.tween_property(self, "orb_raise", 8.0, 8.0).set_trans(Tween.TRANS_LINEAR)
+
 func _physics_process(delta : float) -> void:
 	orb_rotation += delta * 2.0
 	for i in range(0, ORB_COUNT):
 		orbs[i].position = Vector2(orb_radius, 0.0).rotated(orb_rotation + (ORB_OFFSET * i))
+		var raise : float = clamp(orb_raise - i, 0.0, 1.0)
+		raise *= raise
+		orbs[i].position.y -= raise * 260.0
 
 func _ready() -> void:
 	for i in range(1, ORB_COUNT):

@@ -4,7 +4,11 @@ extends Node
 @onready var ambience_rain : AudioStreamPlayer = $Ambience_Rain
 @onready var ambience_ending : AudioStreamPlayer = $Ambience_Ending
 @onready var music_dream : AudioStreamPlayer = $Music_Dream
+@onready var music_wind : AudioStreamPlayer = $Music_Wind
 
+enum MusicState {WAITING, PLAYING_WIND, WIND_DONE, PLAYING_DREAM, DREAM_DONE}
+
+var music_state : int = MusicState.WAITING
 var ambience_started : bool = false
 
 func play_ambience_thunder() -> void:
@@ -28,6 +32,34 @@ func debug_start_ambience() -> void:
 	ambience_rain.play()
 	ambience_thunder.play()
 
-func play_music_dream() -> void:
-	if not music_dream.playing:
-		music_dream.play()
+func duck_ambience_next_level() -> void:
+	var tween : Tween = create_tween()
+	tween.tween_property(ambience_rain, "volume_db", -40.0, 1.0)
+	tween.tween_interval(1.0)
+	tween.tween_property(ambience_rain, "volume_db", -10.0, 1.0)
+
+func duck_ambience_restart_level() -> void:
+	var tween : Tween = create_tween()
+	tween.tween_property(ambience_rain, "volume_db", -40.0, 0.5)
+	tween.tween_interval(0.5)
+	tween.tween_property(ambience_rain, "volume_db", -10.0, 0.5)
+
+func stop_game_ambience() -> void:
+	var tween : Tween = create_tween().set_parallel()
+	tween.tween_property(ambience_thunder, "volume_db", -40.0, 8.0)
+	tween.tween_property(ambience_rain, "volume_db", -40.0, 2.0)
+
+func _on_level_started() -> void:
+	match music_state:
+		MusicState.WAITING:
+			music_wind.play()
+			music_state = MusicState.PLAYING_WIND
+		MusicState.WIND_DONE:
+			music_dream.play()
+			music_state = MusicState.PLAYING_DREAM
+
+func _on_music_wind_finished() -> void:
+	music_state = MusicState.WIND_DONE
+
+func _on_music_dream_finished() -> void:
+	music_state = MusicState.DREAM_DONE

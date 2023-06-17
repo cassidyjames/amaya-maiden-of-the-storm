@@ -24,7 +24,11 @@ func _on_timer_emit_steam_timeout() -> void:
 		sprite_particle.velocity = Vector2.UP * randf_range(32.0, 96.0)
 		sprite_particle.z_index = -20
 
-func _physics_process(delta : float) -> void:
+# Horrific janky fix
+func _on_timer_jiggle_flame_timeout() -> void:
+	area_flame.position.x = randf_range(-0.1, 0.1)
+
+func _process(delta : float) -> void:
 	if is_wet():
 		health = clamp(health - (HEALTH_DECR * delta), 0.0, 1.0)
 		flame.material.set_shader_parameter("multiplier", health)
@@ -34,3 +38,4 @@ func _physics_process(delta : float) -> void:
 
 func _ready() -> void:
 	flame.material = flame.material.duplicate(true)
+

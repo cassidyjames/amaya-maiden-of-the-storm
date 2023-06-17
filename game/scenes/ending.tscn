@@ -62,6 +62,7 @@ grow_vertical = 2
 script = ExtResource("1_bsea2")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,6 +74,7 @@ expand_mode = 3
 stretch_mode = 6
 
 [node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 792.0
 offset_top = 256.0
@@ -160,6 +162,7 @@ text = "0
 horizontal_alignment = 2
 
 [node name="ThankYou" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 496.0
 offset_top = 652.0

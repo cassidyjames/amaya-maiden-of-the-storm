@@ -50,22 +50,29 @@ func _on_level_clear() -> void:
 		"time": level_time, "deaths": level_deaths, "shifts": level_shifts
 	}
 	end_level()
-	level_indicator.show()
-	level_indicator.play(current_level)
-	await get_tree().create_timer(2.25).timeout
-	if current_level == 8:
+	if current_level == 7:
+		AudioController.stop_game_ambience()
+		level_indicator.show()
+		level_indicator.play_ending()
+		await get_tree().create_timer(11.0).timeout
 		get_tree().change_scene_to_file("res://scenes/ending.tscn")
 	else:
+		AudioController.duck_ambience_next_level()
 		current_level += 1
+		level_indicator.show()
+		level_indicator.play(current_level)
+		await get_tree().create_timer(2.25).timeout
 		start_level()
 		await get_tree().create_timer(1.0).timeout
 		level_indicator.hide()
+		AudioController._on_level_started()
 
 func _on_player_shift() -> void:
 	level_shifts += 1
 
 func _on_player_dead() -> void:
 	level_deaths += 1
+	AudioController.duck_ambience_restart_level()
 	await end_level()
 	await get_tree().create_timer(0.5).timeout
 	start_level()
@@ -84,5 +91,5 @@ func _process(delta : float) -> void:
 
 func _ready() -> void:
 	AudioController.debug_start_ambience()
-	AudioController.play_music_dream()
+	AudioController._on_level_started()
 	start_level()

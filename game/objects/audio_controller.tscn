@@ -30,3 +30,6 @@ bus = &"BGM"
 [node name="Music_Wind" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_wgyiy")
 bus = &"BGM"
+
+[connection signal="finished" from="Music_Dream" to="." method="_on_music_dream_finished"]
+[connection signal="finished" from="Music_Wind" to="." method="_on_music_wind_finished"]
