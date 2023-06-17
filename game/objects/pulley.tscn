@@ -7,15 +7,21 @@
 [node name="Pulley" type="Node2D"]
 script = ExtResource("1_a5xey")
 
-[node name="Axel1" type="Sprite2D" parent="."]
+[node name="Axel_Left" type="Sprite2D" parent="."]
+z_index = 5
 texture_filter = 1
-position = Vector2(-64, -8)
+position = Vector2(-60, -4)
 texture = ExtResource("1_i368r")
+hframes = 8
+vframes = 2
 
-[node name="Axel2" type="Sprite2D" parent="."]
+[node name="Axel_Right" type="Sprite2D" parent="."]
+z_index = 5
 texture_filter = 1
-position = Vector2(64, -8)
+position = Vector2(60, -4)
 texture = ExtResource("1_i368r")
+hframes = 8
+vframes = 2
 
 [node name="Chain_Top" type="Sprite2D" parent="."]
 texture_filter = 1

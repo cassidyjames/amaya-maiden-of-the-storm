@@ -10,6 +10,10 @@ const DESCEND_SPEED : float = 100.0
 @onready var chain_top : Sprite2D = $Chain_Top
 @onready var chain_left : Sprite2D = $Chain_Left
 @onready var chain_right : Sprite2D = $Chain_Right
+@onready var axel_left : Sprite2D = $Axel_Left
+@onready var axel_right : Sprite2D = $Axel_Right
+
+var axel_rotation : float = 0.0
 
 func _physics_process(delta : float) -> void:
 	var mass_difference : float = right_object.get_mass_of_self_and_top() - left_object.get_mass_of_self_and_top()
@@ -35,6 +39,10 @@ func _physics_process(delta : float) -> void:
 		heavy_chain.region_rect.position.y -= amount_moved
 		heavy_chain.region_rect.size.y += amount_moved
 		light_chain.region_rect.size.y -= amount_moved
+		
+		axel_rotation += amount_moved if mass_difference > 0.0 else -amount_moved
+		axel_left.frame = wrapi(axel_rotation / 4.0, 0, 15)
+		axel_right.frame = wrapi(axel_rotation / 4.0, 0, 15)
 
 func _ready() -> void:
 	chain_left.region_rect.size.y = left_object.global_position.y - global_position.y

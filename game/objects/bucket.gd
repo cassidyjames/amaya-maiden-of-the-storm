@@ -25,7 +25,7 @@ func _on_timer_emit_spiral_timeout() -> void:
 		sprite_particle.setup("spiral1" if randf() > 0.5 else "spiral2")
 		sprite_particle.global_position = global_position + Vector2(randf_range(-8.0, 8.0), 16.0)
 		sprite_particle.velocity = Vector2.UP * randf_range(16.0, 64.0)
-		sprite_particle.z_index = -20
+		sprite_particle.z_index = 10
 
 func _process(delta : float) -> void:
 	if is_wet():
