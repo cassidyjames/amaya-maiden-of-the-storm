@@ -49,6 +49,7 @@ func _on_level_clear() -> void:
 	GameSession.level_history[current_level] = {
 		"time": level_time, "deaths": level_deaths, "shifts": level_shifts
 	}
+	level_deaths = 0
 	end_level()
 	if current_level == 7:
 		AudioController.stop_game_ambience()

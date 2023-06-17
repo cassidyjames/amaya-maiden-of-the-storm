@@ -37,6 +37,7 @@ var which_footstep : bool = false
 func get_hit_with_rain() -> void:
 	if current_state == State.HIT or spawn_invuln > 0.0: return
 	get_tree().call_group("orb", "_on_player_hit")
+	AudioController.play_player_die()
 	current_state = State.HIT
 	anim_index = 0.0
 	timer_spawn_death_spark.start()
@@ -75,7 +76,6 @@ func do_vertical_movement(delta : float) -> void:
 				current_state = State.LANDING
 			else:
 				current_state = State.NORMAL
-			print(velocity.y)
 			velocity.y = 0.0
 			anim_index = 0.0
 			audio_land.play()

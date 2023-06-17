@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dahum0mef3nx5"]
+[gd_scene load_steps=8 format=3 uid="uid://dahum0mef3nx5"]
 
 [ext_resource type="Script" path="res://objects/audio_controller.gd" id="1_g30xe"]
 [ext_resource type="AudioStream" uid="uid://dcog8u3iskc2o" path="res://music/dream.ogg" id="1_o55bi"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://ds4i4tyu7h30u" path="res://sounds/ambience/ending.ogg" id="4_cn8a5"]
 [ext_resource type="AudioStream" uid="uid://dc36a7pc5dhag" path="res://sounds/ambience/thunderstorm.ogg" id="4_frk5c"]
 [ext_resource type="AudioStream" uid="uid://ds6l638wph4hb" path="res://sounds/ambience/rain.ogg" id="5_q07r0"]
+[ext_resource type="AudioStream" uid="uid://caj22i6amr1r" path="res://sounds/player_die.wav" id="7_txekt"]
 
 [node name="AudioController" type="Node"]
 script = ExtResource("1_g30xe")
@@ -29,7 +30,14 @@ bus = &"BGM"
 
 [node name="Music_Wind" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_wgyiy")
+volume_db = -10.0
 bus = &"BGM"
+
+[node name="Audio_PlayerDie" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_txekt")
+volume_db = -5.0
+pitch_scale = 0.6
+bus = &"SFX"
 
 [connection signal="finished" from="Music_Dream" to="." method="_on_music_dream_finished"]
 [connection signal="finished" from="Music_Wind" to="." method="_on_music_wind_finished"]

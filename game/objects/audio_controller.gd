@@ -5,6 +5,7 @@ extends Node
 @onready var ambience_ending : AudioStreamPlayer = $Ambience_Ending
 @onready var music_dream : AudioStreamPlayer = $Music_Dream
 @onready var music_wind : AudioStreamPlayer = $Music_Wind
+@onready var audio_player_die : AudioStreamPlayer = $Audio_PlayerDie
 
 enum MusicState {WAITING, PLAYING_WIND, WIND_DONE, PLAYING_DREAM, DREAM_DONE}
 
@@ -63,3 +64,6 @@ func _on_music_wind_finished() -> void:
 
 func _on_music_dream_finished() -> void:
 	music_state = MusicState.DREAM_DONE
+
+func play_player_die() -> void:
+	audio_player_die.play()
