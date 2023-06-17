@@ -93,7 +93,7 @@ func emit_jump_particles() -> void:
 		var sprite_particle : Sprite2D = _SpriteParticles.instantiate()
 		get_parent().add_child(sprite_particle)
 		sprite_particle.setup("jumpdust")
-		sprite_particle.global_position = global_position + Vector2(8 * direction.x, -8)
+		sprite_particle.global_position = global_position + Vector2(8 * direction.x, -6)
 		sprite_particle.velocity = direction * 64.0
 		sprite_particle.flip_h = direction == Vector2.LEFT
 

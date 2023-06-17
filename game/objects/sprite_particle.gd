@@ -13,6 +13,8 @@ const PARTICLE_TYPES : Dictionary = {
 	"deathorb": [48, 54, 0.05, -1, false],
 	"ember1": [88, 95, 0.1, -1, false],
 	"ember2": [96, 103, 0.2, -1, false],
+	"leaf1": [104, 111, 0.1, -1, false],
+	"acorn1": [112, 115, 0.2, -1, false],
 }
 
 @onready var timer_nextframe : Timer = $Timer_NextFrame
@@ -29,6 +31,9 @@ func setup(particle_name : String) -> void:
 	loop_frame = PARTICLE_TYPES[particle_name][2]
 	loop = PARTICLE_TYPES[particle_name][4]
 	timer_nextframe.wait_time = PARTICLE_TYPES[particle_name][2]
+
+func override_speed(time : float) -> void:
+	timer_nextframe.wait_time = time
 
 func _on_timer_next_frame_timeout() -> void:
 	if frame == kill_frame:
