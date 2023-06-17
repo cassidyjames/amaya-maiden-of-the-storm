@@ -1,14 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwk57yip14rsb"]
+[gd_scene load_steps=9 format=3 uid="uid://dwk57yip14rsb"]
 
 [ext_resource type="Script" path="res://scenes/ending.gd" id="1_bsea2"]
 [ext_resource type="Texture2D" uid="uid://btka2p7px8bsj" path="res://sprites/ending.png" id="1_mgjkj"]
 [ext_resource type="FontFile" uid="uid://dfwoafnb5rcim" path="res://fonts/PixelOperator8-Bold.ttf" id="3_etve7"]
 [ext_resource type="FontFile" uid="uid://dieqwu2uxe5k3" path="res://fonts/PixelOperator8.ttf" id="4_s5wvw"]
+[ext_resource type="Texture2D" uid="uid://bun5m3jgm1m7m" path="res://sprites/credits.png" id="5_dghcx"]
 [ext_resource type="Texture2D" uid="uid://dus41y47f02l7" path="res://sprites/thank_you.png" id="5_q2oe3"]
 
 [sub_resource type="Animation" id="Animation_m7320"]
 resource_name = "ending"
-length = 8.0
+length = 20.0
 step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -29,10 +30,10 @@ tracks/1/path = NodePath("ColorRect:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(3, 4),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(3, 4, 9, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -41,7 +42,7 @@ tracks/2/path = NodePath("ThankYou:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(6, 7),
+"times": PackedFloat32Array(19, 20),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -57,6 +58,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Credits:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(11, 12, 17, 18),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i1sgm"]
@@ -171,6 +184,17 @@ text = "0
 0
 0"
 horizontal_alignment = 2
+
+[node name="Credits" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 576.0
+offset_top = 128.0
+offset_right = 1216.0
+offset_bottom = 640.0
+texture = ExtResource("5_dghcx")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="ThankYou" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)

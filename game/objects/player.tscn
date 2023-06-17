@@ -40,6 +40,7 @@ position = Vector2(0, -48)
 
 [node name="Arrow_Left" type="Sprite2D" parent="."]
 visible = false
+z_index = 25
 texture_filter = 1
 position = Vector2(-16, -16)
 texture = ExtResource("4_w8tc3")
@@ -47,6 +48,7 @@ flip_h = true
 
 [node name="Arrow_Right" type="Sprite2D" parent="."]
 visible = false
+z_index = 25
 texture_filter = 1
 position = Vector2(16, -16)
 texture = ExtResource("4_w8tc3")

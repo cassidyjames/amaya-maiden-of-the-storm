@@ -34,6 +34,11 @@ var coyote_time : float = 0.0
 var rundust_cooldown : float = 0.0
 var which_footstep : bool = false
 
+func can_be_moved() -> bool:
+	if current_state == State.JUMPING or current_state == State.HIT:
+		return false
+	return true
+
 func get_hit_with_rain() -> void:
 	if current_state == State.HIT or spawn_invuln > 0.0: return
 	get_tree().call_group("orb", "_on_player_hit")

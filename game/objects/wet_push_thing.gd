@@ -74,7 +74,7 @@ func descend(distance : float) -> float:
 	var distance_moved = distance - remainder
 	if distance_moved > 0.0:
 		for thing in get_things_in_area(area_top_space):
-			if thing is Player and thing.current_state != thing.State.JUMPING:
+			if thing is Player and thing.can_be_moved():
 				thing.move_and_collide(Vector2.DOWN * distance_moved)
 			else:
 				thing.move_and_collide(Vector2.DOWN * distance_moved)

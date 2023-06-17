@@ -79,3 +79,5 @@ func load_config() -> void:
 func _ready() -> void:
 	load_config()
 	apply_config()
+	apply_volumes()
+	apply_keybindings()
