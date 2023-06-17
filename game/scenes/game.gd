@@ -71,6 +71,7 @@ func _on_player_shift() -> void:
 	level_shifts += 1
 
 func _on_player_dead() -> void:
+	await get_tree().create_timer(0.5).timeout
 	level_deaths += 1
 	AudioController.duck_ambience_restart_level()
 	await end_level()

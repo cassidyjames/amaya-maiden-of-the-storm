@@ -7,6 +7,8 @@ const PARTICLE_TYPES : Dictionary = {
 	"steam2": [24, 31, 0.1, -1, false],
 	"spark1": [32, 35, 0.05, -1, false],
 	"spark2": [40, 43, 0.05, -1, false],
+	"deathspark": [80, 87, 0.05, -1, false],
+	"deathorb": [48, 54, 0.05, -1, false],
 }
 
 @onready var timer_nextframe : Timer = $Timer_NextFrame
@@ -34,7 +36,7 @@ func _on_timer_next_frame_timeout() -> void:
 		frame += 1
 
 func _on_timer_timeout_timeout() -> void:
-	pass # Replace with function body.
+	queue_free()
 
 func _physics_process(delta : float) -> void:
 	position += velocity * delta

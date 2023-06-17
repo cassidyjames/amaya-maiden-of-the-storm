@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Player
 
-const _EnergyOrb : PackedScene = preload("res://objects/energy_orb.tscn")
+const _SpriteParticles : PackedScene = preload("res://objects/sprite_particle.tscn")
 
 const RUN_SPEED : float = 80.0
 const RUN_ACCEL : float = 512.0
@@ -15,6 +15,7 @@ const MAX_FALL : float = 160.0
 @onready var orb_float_point : Node2D = $OrbFloatPoint
 @onready var arrow_left : Sprite2D = $Arrow_Left
 @onready var arrow_right : Sprite2D = $Arrow_Right
+@onready var timer_spawn_death_spark : Timer = $Timer_SpawnDeathSpark
 
 enum State {NORMAL, JUMPING, WIND_CHANGE, CHANGE_LEFT, CHANGE_RIGHT, HIT}
 
@@ -31,15 +32,18 @@ func get_hit_with_rain() -> void:
 	if current_state == State.HIT or spawn_invuln > 0.0: return
 	get_tree().call_group("orb", "_on_player_hit")
 	current_state = State.HIT
+	anim_index = 0.0
+	timer_spawn_death_spark.start()
 	var tween : Tween = create_tween().set_parallel()
 	tween.tween_property(self, "shine_a", 1.0, 0.1)
 	tween.tween_property(self, "shine_b", 0.5, 0.75)
 	await tween.finished
-	for direction in [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]:
-		var orb : Sprite2D = _EnergyOrb.instantiate()
-		get_parent().add_child(orb)
-		orb.global_position = global_position + Vector2(0, -20)
-		orb.velocity = direction * 100.0
+	for i in range(0, 6):
+		var sprite_particle : Sprite2D = _SpriteParticles.instantiate()
+		get_parent().add_child(sprite_particle)
+		sprite_particle.setup("deathorb")
+		sprite_particle.global_position = global_position + Vector2(0, -15)
+		sprite_particle.velocity = Vector2.UP.rotated((i*PI)/3.0) * 256.0
 	get_tree().call_group("game", "_on_player_dead")
 	queue_free()
 
@@ -162,6 +166,15 @@ func state_change_right(delta : float) -> void:
 		sprite.flip_h = false
 		sprite.frame = 0
 		current_state = State.NORMAL
+
+func _on_timer_spawn_death_spark_timeout() -> void:
+	for direction in [Vector2.UP, Vector2.DOWN]:
+		var sprite_particle : Sprite2D = _SpriteParticles.instantiate()
+		get_parent().add_child(sprite_particle)
+		sprite_particle.setup("deathspark")
+		sprite_particle.global_position = global_position + Vector2(0, -15)
+		sprite_particle.velocity = direction.rotated(anim_index) * 128.0
+		anim_index += PI/6.0
 
 func _physics_process(delta : float) -> void:
 	match current_state:

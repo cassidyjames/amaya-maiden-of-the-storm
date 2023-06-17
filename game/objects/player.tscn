@@ -45,3 +45,8 @@ visible = false
 texture_filter = 1
 position = Vector2(16, -16)
 texture = ExtResource("4_w8tc3")
+
+[node name="Timer_SpawnDeathSpark" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="Timer_SpawnDeathSpark" to="." method="_on_timer_spawn_death_spark_timeout"]
