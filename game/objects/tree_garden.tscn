@@ -31,30 +31,35 @@ collision_mask = 3
 script = ExtResource("1_qfhw7")
 
 [node name="Outline_L" type="Sprite2D" parent="."]
+z_index = 4
 texture_filter = 1
 material = SubResource("ShaderMaterial_mfhfd")
 position = Vector2(-1, -32)
 texture = ExtResource("1_kcwwl")
 
 [node name="Outline_R" type="Sprite2D" parent="."]
+z_index = 4
 texture_filter = 1
 material = SubResource("ShaderMaterial_mfhfd")
 position = Vector2(1, -32)
 texture = ExtResource("1_kcwwl")
 
 [node name="Outline_U" type="Sprite2D" parent="."]
+z_index = 4
 texture_filter = 1
 material = SubResource("ShaderMaterial_mfhfd")
 position = Vector2(0, -33)
 texture = ExtResource("1_kcwwl")
 
 [node name="Outline_D" type="Sprite2D" parent="."]
+z_index = 4
 texture_filter = 1
 material = SubResource("ShaderMaterial_mfhfd")
 position = Vector2(0, -31)
 texture = ExtResource("1_kcwwl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 5
 texture_filter = 1
 material = SubResource("ShaderMaterial_mw115")
 position = Vector2(0, -32)
@@ -62,6 +67,7 @@ texture = ExtResource("1_kcwwl")
 
 [node name="Bed" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, 4)
 texture = ExtResource("5_36mip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -74,6 +80,7 @@ collision_layer = 0
 collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D_Treetop"]
+z_index = 10
 texture_filter = 1
 position = Vector2(0, -56)
 texture = ExtResource("6_6nyi4")

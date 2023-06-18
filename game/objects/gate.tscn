@@ -18,7 +18,7 @@ mass = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, 48)
+position = Vector2(0, 44)
 texture = ExtResource("1_cp3cs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

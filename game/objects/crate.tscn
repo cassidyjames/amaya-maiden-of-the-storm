@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://objects/wet_push_thing.gd" id="1_8wqnw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_puakv"]
-size = Vector2(31, 31)
+size = Vector2(31, 29)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yhw8o"]
 size = Vector2(32, 2)
@@ -16,7 +16,7 @@ script = ExtResource("1_8wqnw")
 path_area_top_space = NodePath("Area2D_TopSpace")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -16)
+position = Vector2(0, -14.5)
 shape = SubResource("RectangleShape2D_puakv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -25,7 +25,7 @@ position = Vector2(0, -16)
 texture = ExtResource("1_3q878")
 
 [node name="Area2D_TopSpace" type="Area2D" parent="."]
-position = Vector2(0, -33)
+position = Vector2(0, -30)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_TopSpace"]
 shape = SubResource("RectangleShape2D_yhw8o")

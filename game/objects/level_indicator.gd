@@ -35,21 +35,6 @@ func play_ending() -> void:
 	tween.tween_interval(1.0)
 	tween.tween_property(whiteout, "modulate", Color.WHITE, 1.0).set_trans(Tween.TRANS_LINEAR)
 
-func _physics_process(delta : float) -> void:
-	orb_rotation += delta * 2.0
-	for i in range(0, ORB_COUNT):
-		orbs[i].position = Vector2(orb_radius, 0.0).rotated(orb_rotation + (ORB_OFFSET * i))
-		var raise : float = clamp(orb_raise - i, 0.0, 1.0)
-		raise *= raise
-		orbs[i].position.y -= raise * 260.0
-
-func _ready() -> void:
-	for i in range(1, ORB_COUNT):
-		var new_orb = orb.duplicate()
-		orbs.append(new_orb)
-		add_child(new_orb)
-
-
 func _on_timer_next_frame_timeout() -> void:
 	for i in range(0, ORB_COUNT):
 		orbs[i].frame = wrapi(orbs[i].frame + 1, 0, 18)
@@ -59,3 +44,17 @@ func _on_timer_next_frame_timeout() -> void:
 			sprite_particle.setup("spark1" if randf() > 0.5 else "spark2")
 			sprite_particle.global_position = orbs[i].global_position + Vector2(randf_range(-8.0, 8.0), randf_range(-8.0, 8.0))
 			sprite_particle.velocity = Vector2.DOWN * randf_range(32.0, 96.0)
+
+func _physics_process(delta : float) -> void:
+	orb_rotation += delta * 2.0
+	for i in range(0, ORB_COUNT):
+		orbs[i].position = Vector2(orb_radius, 0.0).rotated(orb_rotation + (ORB_OFFSET * i))
+		var raise : float = clamp(orb_raise - i, 0.0, 1.0)
+		raise *= raise
+		orbs[i].position.y -= raise * 280.0
+
+func _ready() -> void:
+	for i in range(1, ORB_COUNT):
+		var new_orb = orb.duplicate()
+		orbs.append(new_orb)
+		add_child(new_orb)

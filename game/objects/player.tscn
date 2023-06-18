@@ -44,7 +44,7 @@ z_index = 25
 texture_filter = 1
 position = Vector2(-16, -16)
 texture = ExtResource("4_w8tc3")
-flip_h = true
+hframes = 18
 
 [node name="Arrow_Right" type="Sprite2D" parent="."]
 visible = false
@@ -52,6 +52,8 @@ z_index = 25
 texture_filter = 1
 position = Vector2(16, -16)
 texture = ExtResource("4_w8tc3")
+flip_h = true
+hframes = 18
 
 [node name="Timer_SpawnDeathSpark" type="Timer" parent="."]
 wait_time = 0.1

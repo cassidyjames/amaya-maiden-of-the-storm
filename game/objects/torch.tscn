@@ -14,7 +14,7 @@ shader_parameter/multiplier = 1.0
 shader_parameter/flame = ExtResource("3_vkkbx")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2e58"]
-size = Vector2(32, 32)
+size = Vector2(32, 28)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7sw2r"]
 radius = 12.0
@@ -29,30 +29,32 @@ script = ExtResource("1_kf76o")
 path_area_top_space = NodePath("Area2D_TopSpace")
 mass = 2.0
 
-[node name="Base" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_8fdwu")
-offset = Vector2(0, 16)
+offset = Vector2(0, 8)
+hframes = 5
+frame = 4
 
 [node name="Flame" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_3sx4r")
-position = Vector2(0, -16)
+position = Vector2(0, -10)
 texture = ExtResource("3_3x4o6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 16)
+position = Vector2(0, 18)
 shape = SubResource("RectangleShape2D_k2e58")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="Area2D_Flame" type="Area2D" parent="."]
-position = Vector2(0, -12)
+position = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_Flame"]
 shape = SubResource("CircleShape2D_7sw2r")
 
 [node name="Area2D_TopSpace" type="Area2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(0, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_TopSpace"]
 shape = SubResource("RectangleShape2D_rccsc")

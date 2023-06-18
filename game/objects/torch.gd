@@ -6,6 +6,7 @@ const _SpriteParticles : PackedScene = preload("res://objects/sprite_particle.ts
 
 const HEALTH_DECR : float = 0.65
 
+@onready var sprite : Sprite2D = $Sprite2D
 @onready var flame : Sprite2D = $Flame
 @onready var area_flame : Area2D = $Area2D_Flame
 @onready var audio_douse : AudioStreamPlayer = $Audio_Douse
@@ -42,6 +43,7 @@ func _on_timer_jiggle_flame_timeout() -> void:
 func _process(delta : float) -> void:
 	if is_wet():
 		health = clamp(health - (HEALTH_DECR * delta), 0.0, 1.0)
+		sprite.frame = health * 4
 		flame.material.set_shader_parameter("multiplier", health)
 		audio_fire.volume_db = remap(health, 0.0, 1.0, -40.0, 0.0)
 		if health <= 0.1:

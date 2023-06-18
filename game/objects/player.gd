@@ -211,6 +211,8 @@ func state_wind_change(delta : float) -> void:
 	sprite.frame = 30 + clampf(anim_index, 0.0, 1.0)
 	arrow_left.offset.x = sin(anim_index) * 4.0
 	arrow_right.offset.x = -sin(anim_index) * 4.0
+	arrow_left.frame = wrapi(anim_index, 0, 18)
+	arrow_right.frame = wrapi(anim_index, 0, 18)
 	if Input.is_action_just_pressed("run_left"):
 		shift_wind(Vector2.LEFT, State.CHANGE_LEFT)
 	elif Input.is_action_just_pressed("run_right"):
