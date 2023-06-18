@@ -53,6 +53,6 @@ position = Vector2(320, 224)
 attached = true
 
 [node name="Bucket" parent="." instance=ExtResource("10_drhom")]
-position = Vector2(368, 112)
+position = Vector2(372, 112)
 
 [node name="Background" parent="." instance=ExtResource("10_r4wo1")]

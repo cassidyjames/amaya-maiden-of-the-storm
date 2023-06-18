@@ -32,7 +32,7 @@ window/stretch/mode="canvas_items"
 [editor]
 
 movie_writer/movie_file="D:/Flyfiles/2023/Projects/Games/Miko/misc/movie/frame.png"
-movie_writer/fps=20
+movie_writer/fps=30
 
 [input]
 
