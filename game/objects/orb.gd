@@ -10,6 +10,7 @@ const MAX_SPEED : float = 256.0
 enum State {FLOATING, FOLLOWING, FALLING}
 
 @onready var sprite : Sprite2D = $Sprite2D
+@onready var audio_picked_up : AudioStreamPlayer = $Audio_PickedUp
 
 var velocity : Vector2 = Vector2.ZERO
 var current_state : int = State.FLOATING
@@ -21,6 +22,7 @@ func _on_body_entered(body) -> void:
 		player = body
 		body.has_orb = true
 		current_state = State.FOLLOWING
+		audio_picked_up.play()
 
 func _on_timer_next_frame_timeout() -> void:
 	sprite.frame = wrapi(sprite.frame + 1, 0, 18)
