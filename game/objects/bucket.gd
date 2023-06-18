@@ -11,6 +11,7 @@ const BOIL_RATE : float = 0.2
 
 @onready var sprite_level : Sprite2D = $Level
 @onready var audio_boil : AudioStreamPlayer = $Audio_Boil
+@onready var audio_fill : AudioStreamPlayer = $Audio_Fill
 
 var water_capacity : float = 0.0
 var heated : float = 0.0
@@ -31,6 +32,9 @@ func _on_timer_emit_spiral_timeout() -> void:
 func _process(delta : float) -> void:
 	if is_wet():
 		water_capacity = clamp(water_capacity + (FILL_RATE * delta), 0.0, 1.0)
+		if not audio_fill.playing and water_capacity < 1.0 and water_capacity > 0.05:
+			audio_fill.pitch_scale = remap(water_capacity, 0.0, 1.0, 0.5, 1.0)
+			audio_fill.play()
 	
 	if heated > 0.0:
 		temperature = clamp(temperature + (HEAT_RATE * delta), 0.0, 1.0)
@@ -41,7 +45,7 @@ func _process(delta : float) -> void:
 	if temperature > 0.5:
 		water_capacity = clamp(water_capacity - (BOIL_RATE * delta), 0.0, 1.0)
 	
-	audio_boil.volume_db = remap(temperature * water_capacity, 0.0, 1.0, -40.0, 3.0)
+	audio_boil.volume_db = clamp(remap(temperature * water_capacity, 0.0, 0.75, -20.0, 3.0), -20.0, 3.0)
 	sprite_level.modulate = lerp(Color("249fde"), Color("b4202a"), temperature)
 	sprite_level.frame = water_capacity * 6.0
 	mass = 1.0 + (water_capacity * 3.0)

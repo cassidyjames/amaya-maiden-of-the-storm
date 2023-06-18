@@ -15,9 +15,10 @@ const MAX_FALL : float = 128.0
 
 var wetness : float = 0.0
 var fall_speed : float = 0.0
+var spawn_invuln : float = 0.1
 
 func is_wet() -> bool:
-	return wetness > 0.0
+	return wetness > 0.0 and spawn_invuln == 0.0
 
 func hit_by_rain() -> void:
 	wetness = 0.1
@@ -82,6 +83,7 @@ func descend(distance : float) -> float:
 	return remainder
 
 func _physics_process(delta : float) -> void:
+	spawn_invuln = clamp(spawn_invuln - delta, 0.0, 0.1)
 	wetness = clamp(wetness - delta, 0.0, 0.1)
 	if not attached:
 		if !test_move(transform, Vector2.DOWN):
