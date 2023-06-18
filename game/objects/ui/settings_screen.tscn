@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdk1y2sk6n1bh"]
+[gd_scene load_steps=5 format=3 uid="uid://bdk1y2sk6n1bh"]
 
 [ext_resource type="Script" path="res://objects/ui/settings_screen.gd" id="1_dbchv"]
+[ext_resource type="AudioStream" uid="uid://ncfo5t1y3ee5" path="res://sounds/ui/move.wav" id="3_4tow5"]
 [ext_resource type="Texture2D" uid="uid://c558hu4ho21oe" path="res://sprites/arrow.png" id="3_wm4jn"]
+[ext_resource type="AudioStream" uid="uid://f2pqk6pi3lng" path="res://sounds/ui/click.wav" id="4_0ieuu"]
 
 [node name="SettingsScreen" type="Control"]
 custom_minimum_size = Vector2(640, 360)
@@ -31,13 +33,38 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="Arrow" type="TextureRect" parent="."]
-texture_filter = 1
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 0
+[node name="Cursor" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 offset_left = 190.0
 offset_top = 120.0
-offset_right = 210.0
-offset_bottom = 140.0
+offset_right = 446.0
+offset_bottom = 136.0
+
+[node name="Arrow_Left" type="Sprite2D" parent="Cursor"]
+texture_filter = 1
 texture = ExtResource("3_wm4jn")
-stretch_mode = 3
+centered = false
+flip_h = true
+hframes = 18
+
+[node name="Arrow_Right" type="Sprite2D" parent="Cursor"]
+texture_filter = 1
+position = Vector2(240, 0)
+texture = ExtResource("3_wm4jn")
+centered = false
+hframes = 18
+
+[node name="Audio_Move" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4tow5")
+bus = &"UI"
+
+[node name="Audio_Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_0ieuu")
+bus = &"UI"
+
+[node name="Timer_NextFrame" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer_NextFrame" to="." method="_on_timer_next_frame_timeout"]

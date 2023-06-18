@@ -3,7 +3,11 @@ extends Control
 const _KeyMapping : PackedScene = preload("res://objects/ui/key_mapping.tscn")
 
 @onready var vbox_settings : VBoxContainer = $VBox_Settings
-@onready var arrow : TextureRect = $Arrow
+@onready var cursor : Control = $Cursor
+@onready var arrow_left : Sprite2D = $Cursor/Arrow_Left
+@onready var arrow_right : Sprite2D = $Cursor/Arrow_Right
+@onready var audio_move : AudioStreamPlayer = $Audio_Move
+@onready var audio_click : AudioStreamPlayer = $Audio_Click
 
 enum State {INACTIVE, ACTIVE}
 
@@ -14,6 +18,12 @@ var rebind_hold : float = 0.0
 var rebind_done : bool = false
 
 signal closed
+
+func move_cursor(change : int) -> void:
+	cursor_index = wrapi(cursor_index + change, 0, vbox_settings.get_child_count())
+	for i in range(0, vbox_settings.get_child_count()):
+		vbox_settings.get_child(i).modulate = Color("e4d793") if i == cursor_index else Color("6f673f")
+	create_tween().tween_property(cursor, "position:y", 120 + (cursor_index * 20), 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 func add_boolean_option(label : String, action : String, value : bool) -> void:
 	var mapping : Control = _KeyMapping.instantiate()
@@ -69,21 +79,28 @@ func handle_volume_change(change : float) -> void:
 			Settings.save_config()
 			vbox_settings.get_child(cursor_index).set_key(str(int(Settings.ui_volume * 100.0)) + "%")
 
+func _on_timer_next_frame_timeout() -> void:
+	arrow_left.frame = wrapi(arrow_left.frame + 1, 0, 18)
+	arrow_right.frame = wrapi(arrow_right.frame + 1, 0, 18)
+
 func _input(event : InputEvent) -> void:
 	match current_state:
 		State.ACTIVE:
 			if event.is_action_pressed("up"):
-				cursor_index = wrapi(cursor_index - 1, 0, vbox_settings.get_child_count())
-				arrow.position.y = 120 + (20 * cursor_index)
+				move_cursor(-1)
+				audio_move.play()
 			elif event.is_action_pressed("down"):
-				cursor_index = wrapi(cursor_index + 1, 0, vbox_settings.get_child_count())
-				arrow.position.y = 120 + (20 * cursor_index)
+				move_cursor(1)
+				audio_move.play()
 			elif event.is_action_pressed("jump"):
 				handle_button_pressed()
+				audio_click.play()
 			elif event.is_action_pressed("run_left"):
 				handle_volume_change(-0.1)
+				audio_click.play()
 			elif event.is_action_pressed("run_right"):
 				handle_volume_change(0.1)
+				audio_click.play()
 			elif event.is_action_pressed("change_wind"):
 				current_state = State.INACTIVE
 				emit_signal("closed")
@@ -96,3 +113,4 @@ func _ready() -> void:
 	add_volume_option("SFX", "sfx", Settings.sfx_volume)
 	add_volume_option("AMB", "amb", Settings.amb_volume)
 	add_volume_option("UI", "ui", Settings.ui_volume)
+	move_cursor(0)
