@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dh5q7o1myw66j" path="res://objects/player.tscn" id="3_wsfmf"]
 [ext_resource type="PackedScene" uid="uid://8x6tcn8g8eov" path="res://objects/orb.tscn" id="4_ba87o"]
 [ext_resource type="PackedScene" uid="uid://d0wrogb4hhph4" path="res://objects/shrine.tscn" id="5_wdn6q"]
-[ext_resource type="Texture2D" uid="uid://b67luvl2kp63x" path="res://sprites/background.png" id="6_436ju"]
 [ext_resource type="PackedScene" uid="uid://bjym5w26lhmy6" path="res://objects/torch.tscn" id="7_2lnsa"]
+[ext_resource type="PackedScene" uid="uid://cl0ay348fpj6q" path="res://objects/background.tscn" id="7_pogy0"]
 
 [node name="Level3" type="Node2D"]
 
@@ -35,11 +35,6 @@ position = Vector2(576, 224)
 [node name="Shrine" parent="." instance=ExtResource("5_wdn6q")]
 position = Vector2(104, 224)
 
-[node name="Background" type="Sprite2D" parent="."]
-z_index = -150
-position = Vector2(320, 180)
-texture = ExtResource("6_436ju")
-
 [node name="Torch" parent="." instance=ExtResource("7_2lnsa")]
 position = Vector2(368, 256)
 
@@ -51,3 +46,5 @@ position = Vector2(432, 256)
 
 [node name="Torch4" parent="." instance=ExtResource("7_2lnsa")]
 position = Vector2(464, 256)
+
+[node name="Background" parent="." instance=ExtResource("7_pogy0")]

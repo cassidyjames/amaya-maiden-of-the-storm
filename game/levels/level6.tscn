@@ -5,11 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://dh5q7o1myw66j" path="res://objects/player.tscn" id="3_xby2g"]
 [ext_resource type="PackedScene" uid="uid://8x6tcn8g8eov" path="res://objects/orb.tscn" id="4_fh6c3"]
 [ext_resource type="PackedScene" uid="uid://d0wrogb4hhph4" path="res://objects/shrine.tscn" id="5_21ikp"]
-[ext_resource type="Texture2D" uid="uid://b67luvl2kp63x" path="res://sprites/background.png" id="6_03a62"]
 [ext_resource type="PackedScene" uid="uid://dkqgvmj6vlgwg" path="res://objects/pulley.tscn" id="7_jayd7"]
 [ext_resource type="PackedScene" uid="uid://dqa2tmpt2k4kw" path="res://objects/bridge.tscn" id="8_kc4bm"]
 [ext_resource type="PackedScene" uid="uid://b52bhoodvewbg" path="res://objects/gate.tscn" id="8_r6jvc"]
 [ext_resource type="PackedScene" uid="uid://dtxphweoy247o" path="res://objects/bucket.tscn" id="10_drhom"]
+[ext_resource type="PackedScene" uid="uid://cl0ay348fpj6q" path="res://objects/background.tscn" id="10_r4wo1"]
 
 [node name="Level6" type="Node2D"]
 
@@ -38,11 +38,6 @@ position = Vector2(144, 280)
 [node name="Shrine" parent="." instance=ExtResource("5_21ikp")]
 position = Vector2(496, 304)
 
-[node name="Background" type="Sprite2D" parent="."]
-z_index = -150
-position = Vector2(320, 180)
-texture = ExtResource("6_03a62")
-
 [node name="Pulley" parent="." instance=ExtResource("7_jayd7")]
 position = Vector2(256, 64)
 path_left_object = NodePath("../Gate")
@@ -59,3 +54,5 @@ attached = true
 
 [node name="Bucket" parent="." instance=ExtResource("10_drhom")]
 position = Vector2(368, 112)
+
+[node name="Background" parent="." instance=ExtResource("10_r4wo1")]

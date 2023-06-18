@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=3 uid="uid://cl0ay348fpj6q"]
+
+[ext_resource type="Texture2D" uid="uid://c7aejh2pk1v7d" path="res://sprites/bg3.png" id="1_biio6"]
+[ext_resource type="Script" path="res://objects/background.gd" id="1_csnfm"]
+[ext_resource type="Texture2D" uid="uid://b3qx34anulqno" path="res://sprites/bg4.png" id="1_l4mxl"]
+[ext_resource type="Texture2D" uid="uid://ybmepcvsi85y" path="res://sprites/bg2.png" id="2_lcwe4"]
+[ext_resource type="Texture2D" uid="uid://bcv0wyvdipdw0" path="res://sprites/bg1.png" id="3_don4n"]
+[ext_resource type="Texture2D" uid="uid://ccjwiow71uvbn" path="res://sprites/cloud1.png" id="3_ryhjl"]
+
+[node name="Background" type="Node2D" groups=["background"]]
+z_index = -150
+position = Vector2(320, 180)
+script = ExtResource("1_csnfm")
+
+[node name="Sky" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_l4mxl")
+
+[node name="CloudTop1" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.376471)
+z_index = 800
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, -172)
+texture = ExtResource("3_ryhjl")
+region_enabled = true
+region_rect = Rect2(240, 0, 640, 360)
+
+[node name="CloudTop2" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, -168)
+texture = ExtResource("3_ryhjl")
+region_enabled = true
+region_rect = Rect2(160, 0, 640, 360)
+
+[node name="CloudTop3" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, -144)
+texture = ExtResource("3_ryhjl")
+region_enabled = true
+region_rect = Rect2(480, 0, 640, 360)
+
+[node name="Cloud1" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.25098)
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, -40)
+texture = ExtResource("3_ryhjl")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 360)
+
+[node name="Mountain" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 32)
+texture = ExtResource("1_biio6")
+
+[node name="Cloud2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 32)
+texture = ExtResource("3_ryhjl")
+region_enabled = true
+region_rect = Rect2(240, 0, 640, 360)
+
+[node name="Ground" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 32)
+texture = ExtResource("2_lcwe4")
+
+[node name="Cloud3" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 108)
+texture = ExtResource("3_ryhjl")
+region_enabled = true
+region_rect = Rect2(480, 0, 640, 360)
+
+[node name="Grass" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("3_don4n")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.232085, 0.299496, 0.46875, 0.501961)
+polygon = PackedVector2Array(-320, -180, 320, -180, 320, 140, -320, 140)

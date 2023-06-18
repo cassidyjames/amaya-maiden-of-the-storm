@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dh5q7o1myw66j" path="res://objects/player.tscn" id="3_4kd13"]
 [ext_resource type="PackedScene" uid="uid://8x6tcn8g8eov" path="res://objects/orb.tscn" id="4_tc2fv"]
 [ext_resource type="PackedScene" uid="uid://d0wrogb4hhph4" path="res://objects/shrine.tscn" id="5_ioqj0"]
-[ext_resource type="Texture2D" uid="uid://b67luvl2kp63x" path="res://sprites/background.png" id="6_1dngo"]
+[ext_resource type="PackedScene" uid="uid://cl0ay348fpj6q" path="res://objects/background.tscn" id="6_hvqps"]
 
 [node name="Level" type="Node2D"]
 
@@ -34,7 +34,4 @@ position = Vector2(544, 240)
 [node name="Shrine" parent="." instance=ExtResource("5_ioqj0")]
 position = Vector2(64, 288)
 
-[node name="Background" type="Sprite2D" parent="."]
-z_index = -150
-position = Vector2(320, 180)
-texture = ExtResource("6_1dngo")
+[node name="Background" parent="." instance=ExtResource("6_hvqps")]

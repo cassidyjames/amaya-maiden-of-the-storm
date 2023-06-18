@@ -18,9 +18,15 @@ func change_rain_direction(direction : Vector2) -> void:
 	current_direction += direction
 	current_direction.x = clamp(current_direction.x, -1.0, 1.0)
 	match current_direction:
-		Vector2.LEFT: change_rain_angle(30.0)
-		Vector2.ZERO: change_rain_angle(0.0)
-		Vector2.RIGHT: change_rain_angle(-30.0)
+		Vector2.LEFT:
+			change_rain_angle(30.0)
+			get_tree().call_group("background", "change_velocity", -1.0)
+		Vector2.ZERO:
+			change_rain_angle(0.0)
+			get_tree().call_group("background", "change_velocity", 0.0)
+		Vector2.RIGHT:
+			change_rain_angle(-30.0)
+			get_tree().call_group("background", "change_velocity", 1.0)
 
 func _ready() -> void:
 	for x in range(RAIN_BOX.position.x, RAIN_BOX.end.x, RAIN_GAP):
