@@ -72,6 +72,8 @@ func descend(distance : float) -> float:
 	var remainder : float = 0.0
 	if collision != null:
 		remainder = collision.get_remainder().length()
+		if collision.get_collider() is Player:
+			print(distance)
 	var distance_moved = distance - remainder
 	if distance_moved > 0.0:
 		for thing in get_things_in_area(area_top_space):

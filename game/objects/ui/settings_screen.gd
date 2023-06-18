@@ -101,7 +101,7 @@ func _input(event : InputEvent) -> void:
 			elif event.is_action_pressed("run_right"):
 				handle_volume_change(0.1)
 				audio_click.play()
-			elif event.is_action_pressed("change_wind"):
+			elif event.is_action_pressed("change_wind") or event.is_action_pressed("escape"):
 				current_state = State.INACTIVE
 				emit_signal("closed")
 				get_viewport().set_input_as_handled()

@@ -64,7 +64,7 @@ func _input(event : InputEvent) -> void:
 	elif event.is_action_pressed("down"):
 		move_cursor(1)
 		audio_move.play()
-	elif event.is_action_pressed("change_wind"):
+	elif event.is_action_pressed("change_wind") or event.is_action_pressed("escape"):
 		anim_player.play("unpause")
 		audio_unpause.play()
 		current_state = State.ANIM_OUT

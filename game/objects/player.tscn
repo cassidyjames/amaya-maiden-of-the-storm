@@ -19,7 +19,7 @@ shader_parameter/shine_a = 0.0
 shader_parameter/shine_b = 0.0
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 2
+collision_mask = 15
 script = ExtResource("1_smei0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

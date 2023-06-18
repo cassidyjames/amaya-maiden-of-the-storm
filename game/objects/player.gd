@@ -71,12 +71,16 @@ func do_horizontal_movement(delta : float) -> void:
 				sprite.frame = wrapi(anim_index, 20, 28)
 			else:
 				velocity.x = 0.0
+		elif normal == Vector2(-0.75, -0.75):
+			move_and_collide(Vector2(1, -1).normalized() * collision.get_remainder().length())
+		elif normal == Vector2(0.75, -0.75):
+			move_and_collide(Vector2(-1, -1).normalized() * collision.get_remainder().length())
 
 func do_vertical_movement(delta : float) -> void:
 	var collision : KinematicCollision2D = move_and_collide(velocity * Vector2(0.0, 1.0) * delta)
 	if collision != null:
 		var normal : Vector2 = collision.get_normal().snapped(Vector2(0.25, 0.25))
-		if normal == Vector2.DOWN:
+		if normal == Vector2.DOWN or normal.y == -0.75:
 			velocity.y = 0.0
 		elif normal == Vector2.UP and current_state == State.JUMPING:
 			if velocity.y >= 200:

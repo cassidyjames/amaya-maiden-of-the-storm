@@ -82,7 +82,7 @@ func _on_player_dead() -> void:
 func _input(event : InputEvent) -> void:
 	if current_state != State.GAMEPLAY:
 		return
-	if event.is_action_pressed("pause"):
+	if event.is_action_pressed("pause") or event.is_action_pressed("escape"):
 		var pause_screen : Control = _PauseScreen.instantiate()
 		canvas_layer.add_child(pause_screen)
 		get_tree().paused = true

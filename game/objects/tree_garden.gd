@@ -15,6 +15,7 @@ const GROWTH_RATE : float = 0.25
 var growth : float = 0.0
 var rained_on : float = 0.0
 var fully_grown : bool = false
+var spawn_invuln : float = 0.1
 
 func hit_by_rain() -> void:
 	rained_on = 0.1
@@ -37,8 +38,9 @@ func emit_tree_particles() -> void:
 		sprite_particle.z_index = 100
 
 func _process(delta):
+	spawn_invuln = clamp(spawn_invuln - delta, 0.0, 0.1)
 	rained_on = clamp(rained_on - delta, 0.0, 0.1)
-	if rained_on > 0.0 and not fully_grown:
+	if rained_on > 0.0 and spawn_invuln == 0.0 and not fully_grown:
 		if growth == 0.0:
 			audio_growing.play()
 		growth = clamp(growth + (GROWTH_RATE * delta), 0.0, 1.0)

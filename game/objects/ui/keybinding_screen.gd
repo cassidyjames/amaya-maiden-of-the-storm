@@ -45,13 +45,13 @@ func _input(event : InputEvent) -> void:
 			elif event.is_action_pressed("down"):
 				move_cursor(1)
 				audio_move.play()
-			elif event.is_action_pressed("change_wind"):
+			elif event.is_action_pressed("change_wind") or event.is_action_pressed("escape"):
 				current_state = State.INACTIVE
 				emit_signal("closed")
 				get_viewport().set_input_as_handled()
 				
 		State.BINDING:
-			if event is InputEventKey and event.is_pressed():
+			if event is InputEventKey and event.is_pressed() and event.physical_keycode != KEY_ESCAPE:
 				Settings.apply_keybinding(rebinding_action, event.physical_keycode)
 				Settings.save_config()
 				var key_name : String = OS.get_keycode_string(Settings.mappings[rebinding_action])
