@@ -167,6 +167,9 @@ func state_normal(delta : float) -> void:
 			arrow_left.show()
 			arrow_right.show()
 	
+	if Input.is_action_just_pressed("restart_level"):
+		get_hit_with_rain()
+	
 	do_horizontal_movement(delta)
 	do_vertical_movement(delta)
 
@@ -198,6 +201,9 @@ func state_jumping(delta : float) -> void:
 	
 	coyote_time = clamp(coyote_time - delta, 0.0, 0.1)
 	
+	if Input.is_action_just_pressed("restart_level"):
+		get_hit_with_rain()
+	
 	do_horizontal_movement(delta)
 	do_vertical_movement(delta)
 
@@ -208,6 +214,9 @@ func state_landing(delta : float) -> void:
 		anim_index = 0.0
 	else:
 		sprite.frame = 53 + clamp(anim_index, 0.0, 2.0)
+	
+	if Input.is_action_just_pressed("restart_level"):
+		get_hit_with_rain()
 
 func state_praying(delta : float) -> void:
 	anim_index += delta * 10.0
@@ -226,6 +235,9 @@ func state_praying(delta : float) -> void:
 		current_state = State.NORMAL
 		arrow_left.hide()
 		arrow_right.hide()
+	
+	if Input.is_action_just_pressed("restart_level"):
+		get_hit_with_rain()
 
 func state_changing_wind(flip : bool, direction : Vector2, delta : float) -> void:
 	anim_index += delta
@@ -237,6 +249,9 @@ func state_changing_wind(flip : bool, direction : Vector2, delta : float) -> voi
 		sprite.flip_h = flip
 		sprite.frame = 0
 		current_state = State.NORMAL
+	
+	if Input.is_action_just_pressed("restart_level"):
+		get_hit_with_rain()
 
 func _on_timer_spawn_death_spark_timeout() -> void:
 	for direction in [Vector2.UP, Vector2.DOWN]:
