@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://dfwoafnb5rcim"
-path="res://.godot/imported/PixelOperator8-Bold.ttf-9816dd625e887c8fd6e5634edb7d64db.fontdata"
+uid="uid://b77d0cwbooj80"
+path="res://.godot/imported/VeraMono.ttf-45e6776e66fe13345390bf33d33b6673.fontdata"
 
 [deps]
 
-source_file="res://fonts/PixelOperator8-Bold.ttf"
-dest_files=["res://.godot/imported/PixelOperator8-Bold.ttf-9816dd625e887c8fd6e5634edb7d64db.fontdata"]
+source_file="res://fonts/VeraMono.ttf"
+dest_files=["res://.godot/imported/VeraMono.ttf-45e6776e66fe13345390bf33d33b6673.fontdata"]
 
 [params]
 
