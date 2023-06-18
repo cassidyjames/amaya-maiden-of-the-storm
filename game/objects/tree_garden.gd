@@ -9,10 +9,13 @@ const GROWTH_RATE : float = 0.25
 @onready var outline_l : Sprite2D = $Outline_L
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var treetop : StaticBody2D = $StaticBody2D_Treetop
+@onready var audio_growing : AudioStreamPlayer = $Audio_Growing
+@onready var audio_grown : AudioStreamPlayer = $Audio_Grown
 
 var growth : float = 0.0
 var rained_on : float = 0.0
 var fully_grown : bool = false
+var spawn_invuln : float = 0.1
 
 func hit_by_rain() -> void:
 	rained_on = 0.1
@@ -36,7 +39,9 @@ func emit_tree_particles() -> void:
 
 func _process(delta):
 	rained_on = clamp(rained_on - delta, 0.0, 0.1)
-	if rained_on > 0.0 and not fully_grown:
+	if rained_on > 0.0 and spawn_invuln == 0.0 and not fully_grown:
+		if growth == 0.0:
+			audio_growing.play()
 		growth = clamp(growth + (GROWTH_RATE * delta), 0.0, 1.0)
 		if growth >= 1.0:
 			fully_grown = true
@@ -44,5 +49,7 @@ func _process(delta):
 			treetop.set_collision_layer_value(1, true)
 			treetop.set_collision_layer_value(2, true)
 			emit_tree_particles()
+			audio_grown.play()
 	sprite.material.set_shader_parameter("growth", growth)
 	outline_l.material.set_shader_parameter("growth", growth)
+	spawn_invuln = clamp(spawn_invuln - delta, 0.0, 0.1)
