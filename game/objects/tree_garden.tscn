@@ -29,7 +29,7 @@ size = Vector2(64, 16)
 
 [node name="Tree" type="StaticBody2D"]
 collision_layer = 3
-collision_mask = 3
+collision_mask = 7
 script = ExtResource("1_qfhw7")
 
 [node name="Outline_L" type="Sprite2D" parent="."]

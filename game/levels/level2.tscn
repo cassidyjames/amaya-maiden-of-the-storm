@@ -53,4 +53,5 @@ attached = true
 
 [node name="Gate" parent="." instance=ExtResource("9_ulpnb")]
 position = Vector2(384, 192)
+collision_mask = 3
 attached = true

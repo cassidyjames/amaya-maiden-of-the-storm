@@ -7,11 +7,11 @@
 size = Vector2(62, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_px2wt"]
-size = Vector2(60, 2)
+size = Vector2(56, 6)
 
 [node name="Bridge" type="StaticBody2D"]
 collision_layer = 3
-collision_mask = 2
+collision_mask = 6
 script = ExtResource("1_grvek")
 path_area_top_space = NodePath("Area2D_TopSpace")
 
@@ -30,5 +30,5 @@ collision_layer = 7
 collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_TopSpace"]
-position = Vector2(0, 32)
+position = Vector2(0, 30)
 shape = SubResource("RectangleShape2D_px2wt")

@@ -64,10 +64,11 @@ func get_hit_with_rain() -> void:
 func do_horizontal_movement(delta : float) -> void:
 	var collision : KinematicCollision2D = move_and_collide(velocity * Vector2(1.0, 0.0) * delta)
 	if collision != null:
+		var collider : Node2D = collision.get_collider()
 		var normal : Vector2 = collision.get_normal().snapped(Vector2(0.25, 0.25))
 		if normal in [Vector2.LEFT, Vector2.RIGHT]:
-			if collision.get_collider().is_in_group("wet_push_thing") and current_state == State.NORMAL:
-				collision.get_collider().get_pushed(normal * Vector2(-1, 0), delta)
+			if collider.is_in_group("wet_push_thing") and current_state == State.NORMAL:
+				collider.get_pushed(normal * Vector2(-1, 0), delta)
 				sprite.frame = wrapi(anim_index, 20, 28)
 			else:
 				velocity.x = 0.0

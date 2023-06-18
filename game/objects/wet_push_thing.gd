@@ -68,12 +68,15 @@ func get_pushed(direction : Vector2, delta : float) -> float:
 	return distance_moved
 
 func descend(distance : float) -> float:
-	var collision : KinematicCollision2D = move_and_collide(Vector2.DOWN * distance)
+	var collision : KinematicCollision2D = move_and_collide(Vector2.DOWN * distance, false, 0.00)
 	var remainder : float = 0.0
 	if collision != null:
 		remainder = collision.get_remainder().length()
 		if collision.get_collider() is Player:
-			print(distance)
+			if distance > 1.0:
+				collision.get_collider().get_hit_with_rain()
+			elif distance < 0.0:
+				collision.get_collider().move_and_collide(Vector2.DOWN * distance)
 	var distance_moved = distance - remainder
 	if distance_moved > 0.0:
 		for thing in get_things_in_area(area_top_space):
