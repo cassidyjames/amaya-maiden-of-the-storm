@@ -12,7 +12,7 @@ func change_rain_angle(angle : float) -> void:
 	var tween : Tween = create_tween()
 	tween.set_parallel()
 	for rainbeam in rainbeams:
-		tween.tween_property(rainbeam, "rotation_degrees", angle, 2.0)
+		tween.tween_property(rainbeam, "rotation_degrees", angle, 1.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 func change_rain_direction(direction : Vector2) -> void:
 	current_direction += direction

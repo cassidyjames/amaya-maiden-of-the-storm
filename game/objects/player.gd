@@ -20,6 +20,7 @@ const MAX_FALL : float = 320.0
 @onready var audio_footstep2 : AudioStreamPlayer = $Audio_Footstep2
 @onready var audio_jump : AudioStreamPlayer = $Audio_Jump
 @onready var audio_land : AudioStreamPlayer = $Audio_Land
+@onready var audio_change_wind : AudioStreamPlayer = $Audio_ChangeWind
 
 enum State {NORMAL, JUMPING, LANDING, WIND_CHANGE, CHANGE_LEFT, CHANGE_RIGHT, HIT}
 
@@ -33,6 +34,7 @@ var spawn_invuln : float = 0.1
 var coyote_time : float = 0.0
 var rundust_cooldown : float = 0.0
 var which_footstep : bool = false
+var shifted_wind : bool = false
 
 func can_be_moved() -> bool:
 	if current_state == State.JUMPING or current_state == State.HIT:
@@ -96,13 +98,14 @@ func do_the_run_thing(direction : Vector2, multiplier : float, flip_sprite : boo
 			rundust_cooldown = 0.2
 
 func shift_wind(direction : Vector2, state : int) -> void:
-	get_tree().call_group("rainrow", "change_rain_direction", direction)
 	get_tree().call_group("game", "_on_player_shift")
 	sprite.flip_h = direction == Vector2.RIGHT
 	anim_index = 0.0
 	current_state = state
+	shifted_wind = false
 	arrow_left.hide()
 	arrow_right.hide()
+	audio_change_wind.play()
 
 func emit_jump_particles() -> void:
 	for direction in [Vector2.LEFT, Vector2.RIGHT]:
@@ -206,7 +209,7 @@ func state_landing(delta : float) -> void:
 	else:
 		sprite.frame = 53 + clamp(anim_index, 0.0, 2.0)
 
-func state_wind_change(delta : float) -> void:
+func state_praying(delta : float) -> void:
 	anim_index += delta * 10.0
 	sprite.frame = 30 + clampf(anim_index, 0.0, 1.0)
 	arrow_left.offset.x = sin(anim_index) * 4.0
@@ -224,19 +227,14 @@ func state_wind_change(delta : float) -> void:
 		arrow_left.hide()
 		arrow_right.hide()
 
-func state_change_left(delta : float) -> void:
+func state_changing_wind(flip : bool, direction : Vector2, delta : float) -> void:
 	anim_index += delta
-	sprite.frame = 32 + clamp(anim_index * 15.0, 0, 13)
+	sprite.frame = 32 + clamp(anim_index * 15.0, 0, 15)
+	if anim_index >= 1.0 and !shifted_wind:
+		get_tree().call_group("rainrow", "change_rain_direction", direction)
+		shifted_wind = true
 	if anim_index > 2.0:
-		sprite.flip_h = true
-		sprite.frame = 0
-		current_state = State.NORMAL
-
-func state_change_right(delta : float) -> void:
-	anim_index += delta
-	sprite.frame = 32 + clamp(anim_index * 15.0, 0, 13)
-	if anim_index > 2.0:
-		sprite.flip_h = false
+		sprite.flip_h = flip
 		sprite.frame = 0
 		current_state = State.NORMAL
 
@@ -254,9 +252,9 @@ func _physics_process(delta : float) -> void:
 		State.NORMAL: state_normal(delta)
 		State.LANDING: state_landing(delta)
 		State.JUMPING: state_jumping(delta)
-		State.WIND_CHANGE: state_wind_change(delta)
-		State.CHANGE_LEFT: state_change_left(delta)
-		State.CHANGE_RIGHT: state_change_right(delta)
+		State.WIND_CHANGE: state_praying(delta)
+		State.CHANGE_LEFT: state_changing_wind(true, Vector2.LEFT, delta)
+		State.CHANGE_RIGHT: state_changing_wind(false, Vector2.RIGHT, delta)
 	global_position.x = clampf(global_position.x, 0.0, 640.0)
 	sprite.material.set_shader_parameter("shine_a", shine_a)
 	sprite.material.set_shader_parameter("shine_b", shine_b)
