@@ -12,8 +12,10 @@ const DESCEND_SPEED : float = 100.0
 @onready var chain_right : Sprite2D = $Chain_Right
 @onready var axel_left : Sprite2D = $Axel_Left
 @onready var axel_right : Sprite2D = $Axel_Right
+@onready var audio_creak : AudioStreamPlayer = $Audio_Creak
 
 var axel_rotation : float = 0.0
+var creak_amount : float = 0.0
 
 func _physics_process(delta : float) -> void:
 	var mass_difference : float = right_object.get_mass_of_self_and_top() - left_object.get_mass_of_self_and_top()
@@ -43,6 +45,11 @@ func _physics_process(delta : float) -> void:
 		axel_rotation += amount_moved if mass_difference > 0.0 else -amount_moved
 		axel_left.frame = wrapi(axel_rotation / 4.0, 0, 15)
 		axel_right.frame = wrapi(axel_rotation / 4.0, 0, 15)
+		
+		creak_amount += amount_moved if mass_difference > 0.0 else -amount_moved
+		if abs(creak_amount) > 10.0:
+			audio_creak.play()
+			creak_amount = 0.0
 
 func _ready() -> void:
 	chain_left.region_rect.size.y = left_object.global_position.y - global_position.y
