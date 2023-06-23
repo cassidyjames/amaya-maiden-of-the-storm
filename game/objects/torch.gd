@@ -48,9 +48,10 @@ func _process(delta : float) -> void:
 		audio_fire.volume_db = remap(health, 0.0, 1.0, -40.0, 0.0)
 		if health <= 0.1:
 			audio_fire.stop()
-	for body in area_flame.get_overlapping_bodies():
-		if body is Bucket:
-			body.get_heated()
+	if health > 0.1:
+		for body in area_flame.get_overlapping_bodies():
+			if body is Bucket:
+				body.get_heated()
 
 func _ready() -> void:
 	flame.material = flame.material.duplicate(true)
