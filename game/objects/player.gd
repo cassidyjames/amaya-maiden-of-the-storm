@@ -21,6 +21,7 @@ const MAX_FALL : float = 320.0
 @onready var audio_jump : AudioStreamPlayer = $Audio_Jump
 @onready var audio_land : AudioStreamPlayer = $Audio_Land
 @onready var audio_change_wind : AudioStreamPlayer = $Audio_ChangeWind
+@onready var audio_pushing : AudioStreamPlayer = $Audio_Pushing
 
 enum State {NORMAL, JUMPING, LANDING, WIND_CHANGE, CHANGE_LEFT, CHANGE_RIGHT, HIT}
 
@@ -62,20 +63,27 @@ func get_hit_with_rain() -> void:
 	queue_free()
 
 func do_horizontal_movement(delta : float) -> void:
+	var pushing : bool = false
 	var collision : KinematicCollision2D = move_and_collide(velocity * Vector2(1.0, 0.0) * delta)
 	if collision != null:
 		var collider : Node2D = collision.get_collider()
 		var normal : Vector2 = collision.get_normal().snapped(Vector2(0.25, 0.25))
 		if normal in [Vector2.LEFT, Vector2.RIGHT]:
 			if collider.is_in_group("wet_push_thing") and current_state == State.NORMAL:
-				collider.get_pushed(normal * Vector2(-1, 0), delta)
 				sprite.frame = wrapi(anim_index, 20, 28)
+				var distance_moved : float = collider.get_pushed(normal * Vector2(-1, 0), delta)
+				if distance_moved > 0.0:
+					if not audio_pushing.playing:
+						audio_pushing.play()
+					pushing = true
 			else:
 				velocity.x = 0.0
 		elif normal == Vector2(-0.75, -0.75):
 			move_and_collide(Vector2(1, -1).normalized() * collision.get_remainder().length())
 		elif normal == Vector2(0.75, -0.75):
 			move_and_collide(Vector2(-1, -1).normalized() * collision.get_remainder().length())
+	if audio_pushing.playing and not pushing:
+		audio_pushing.stop()
 
 func do_vertical_movement(delta : float) -> void:
 	var collision : KinematicCollision2D = move_and_collide(velocity * Vector2(0.0, 1.0) * delta)
