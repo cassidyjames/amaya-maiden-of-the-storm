@@ -1,6 +1,6 @@
 extends Node2D
 
-const DESCEND_SPEED : float = 100.0
+const DESCEND_SPEED : float = 48.0
 
 @export_node_path("Node2D") var path_left_object
 @export_node_path("Node2D") var path_right_object
