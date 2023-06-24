@@ -32,14 +32,14 @@ mass = 2.0
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_8fdwu")
-offset = Vector2(0, 8)
+offset = Vector2(0, 10)
 hframes = 5
 frame = 4
 
 [node name="Flame" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_3sx4r")
-position = Vector2(0, -10)
+position = Vector2(0, -9)
 texture = ExtResource("3_3x4o6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -48,7 +48,7 @@ shape = SubResource("RectangleShape2D_k2e58")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="Area2D_Flame" type="Area2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -6)
 collision_layer = 8
 collision_mask = 7
 

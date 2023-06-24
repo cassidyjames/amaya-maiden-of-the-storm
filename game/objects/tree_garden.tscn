@@ -22,7 +22,7 @@ shader_parameter/outline = false
 shader_parameter/growth_map = ExtResource("2_00jj8")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f2a6m"]
-size = Vector2(64, 16)
+size = Vector2(64, 19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qrm4f"]
 size = Vector2(64, 16)
@@ -33,47 +33,47 @@ collision_mask = 7
 script = ExtResource("1_qfhw7")
 
 [node name="Outline_L" type="Sprite2D" parent="."]
-z_index = 4
+z_index = -1
 texture_filter = 1
 material = SubResource("ShaderMaterial_mfhfd")
-position = Vector2(-1, -32)
+position = Vector2(-1, -33)
 texture = ExtResource("1_kcwwl")
 
 [node name="Outline_R" type="Sprite2D" parent="."]
-z_index = 4
+z_index = -1
 texture_filter = 1
 material = SubResource("ShaderMaterial_mfhfd")
-position = Vector2(1, -32)
+position = Vector2(1, -33)
 texture = ExtResource("1_kcwwl")
 
 [node name="Outline_U" type="Sprite2D" parent="."]
-z_index = 4
+z_index = -1
 texture_filter = 1
 material = SubResource("ShaderMaterial_mfhfd")
-position = Vector2(0, -33)
+position = Vector2(0, -34)
 texture = ExtResource("1_kcwwl")
 
 [node name="Outline_D" type="Sprite2D" parent="."]
-z_index = 4
+z_index = -1
 texture_filter = 1
 material = SubResource("ShaderMaterial_mfhfd")
-position = Vector2(0, -31)
-texture = ExtResource("1_kcwwl")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 5
-texture_filter = 1
-material = SubResource("ShaderMaterial_mw115")
 position = Vector2(0, -32)
 texture = ExtResource("1_kcwwl")
 
-[node name="Bed" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, 4)
+material = SubResource("ShaderMaterial_mw115")
+position = Vector2(0, -33)
+texture = ExtResource("1_kcwwl")
+
+[node name="Bed" type="Sprite2D" parent="."]
+z_index = -5
+texture_filter = 1
+position = Vector2(0, 3)
 texture = ExtResource("5_36mip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
+position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_f2a6m")
 
 [node name="StaticBody2D_Treetop" type="StaticBody2D" parent="."]
@@ -82,7 +82,6 @@ collision_layer = 0
 collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D_Treetop"]
-z_index = 10
 texture_filter = 1
 position = Vector2(0, -56)
 texture = ExtResource("6_6nyi4")

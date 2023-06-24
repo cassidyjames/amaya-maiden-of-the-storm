@@ -1,13 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtxphweoy247o"]
+[gd_scene load_steps=9 format=3 uid="uid://dtxphweoy247o"]
 
 [ext_resource type="Script" path="res://objects/bucket.gd" id="1_d45jf"]
 [ext_resource type="Texture2D" uid="uid://bhhhh3cj68psl" path="res://sprites/bucket.png" id="1_dsbun"]
 [ext_resource type="Texture2D" uid="uid://chbq18vav3dhs" path="res://sprites/bucket_level.png" id="2_gstba"]
 [ext_resource type="AudioStream" uid="uid://di6updtiqc1d8" path="res://sounds/bucket_boil.wav" id="4_mtldx"]
 [ext_resource type="AudioStream" uid="uid://d0ge5ihvyj5p3" path="res://sounds/bucket_fill.wav" id="5_0nrl5"]
+[ext_resource type="Texture2D" uid="uid://btdnbxc0uvdmh" path="res://sprites/chain_end.png" id="6_6r0nl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nuuw6"]
-size = Vector2(28, 18)
+size = Vector2(28, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tm81g"]
 size = Vector2(24, 2)
@@ -20,22 +21,23 @@ path_area_top_space = NodePath("Area2D_TopSpace")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, 2)
 texture = ExtResource("1_dsbun")
 offset = Vector2(0, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 22)
+position = Vector2(0, 23.5)
 shape = SubResource("RectangleShape2D_nuuw6")
 
 [node name="Level" type="Sprite2D" parent="."]
 modulate = Color(0.141176, 0.623529, 0.870588, 1)
 texture_filter = 1
-position = Vector2(0, 23)
+position = Vector2(0, 25)
 texture = ExtResource("2_gstba")
 hframes = 7
 
 [node name="Area2D_TopSpace" type="Area2D" parent="."]
-position = Vector2(0, 12)
+position = Vector2(0, 14)
 collision_layer = 5
 collision_mask = 5
 
@@ -55,5 +57,10 @@ bus = &"SFX"
 stream = ExtResource("5_0nrl5")
 volume_db = -7.0
 bus = &"SFX"
+
+[node name="ChainEnd" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 7)
+texture = ExtResource("6_6r0nl")
 
 [connection signal="timeout" from="Timer_EmitSpiral" to="." method="_on_timer_emit_spiral_timeout"]

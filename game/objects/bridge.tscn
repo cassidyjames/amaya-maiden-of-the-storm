@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://0lu2xvhwbq1c" path="res://sprites/bridge.png" id="2_5rxvs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fxiw6"]
-size = Vector2(62, 8)
+size = Vector2(62, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_px2wt"]
 size = Vector2(56, 6)
@@ -21,14 +21,13 @@ position = Vector2(0, 8)
 texture = ExtResource("2_5rxvs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 10)
+position = Vector2(0, 10.5)
 shape = SubResource("RectangleShape2D_fxiw6")
 
 [node name="Area2D_TopSpace" type="Area2D" parent="."]
-position = Vector2(0, -27)
+position = Vector2(0, 4)
 collision_layer = 7
 collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_TopSpace"]
-position = Vector2(0, 30)
 shape = SubResource("RectangleShape2D_px2wt")

@@ -12,6 +12,7 @@ const BOIL_RATE : float = 0.2
 @onready var sprite_level : Sprite2D = $Level
 @onready var audio_boil : AudioStreamPlayer = $Audio_Boil
 @onready var audio_fill : AudioStreamPlayer = $Audio_Fill
+@onready var chain_end : Sprite2D = $ChainEnd
 
 var water_capacity : float = 0.0
 var heated : float = 0.0
@@ -53,3 +54,5 @@ func _process(delta : float) -> void:
 func _ready() -> void:
 	audio_boil.pitch_scale = randf_range(0.8, 1.2)
 	audio_boil.play()
+	if not attached:
+		chain_end.hide()
