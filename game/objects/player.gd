@@ -226,6 +226,13 @@ func state_jumping(delta : float) -> void:
 	do_vertical_movement(delta)
 
 func state_landing(delta : float) -> void:
+	velocity.x = move_toward(velocity.x, 0.0, RUN_DECEL * delta)
+	do_horizontal_movement(delta)
+	
+	if !test_move(transform, Vector2.DOWN):
+		current_state = State.JUMPING
+		anim_index = 0.0
+	
 	anim_index += delta * 10.0
 	if anim_index >= 4.0:
 		current_state = State.NORMAL
