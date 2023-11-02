@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5brbcp12iav8"]
+[gd_scene load_steps=6 format=3 uid="uid://c5brbcp12iav8"]
 
 [ext_resource type="FontFile" uid="uid://dh6jcd5ewh62v" path="res://fonts/PixelOperator-Bold.ttf" id="1_1pp38"]
 [ext_resource type="Script" path="res://objects/ui/key_mapping.gd" id="1_jkbpm"]
 [ext_resource type="FontFile" uid="uid://bxolryalqsocr" path="res://fonts/PixelOperator.ttf" id="2_at1mc"]
+[ext_resource type="Texture2D" uid="uid://bgyamrbgtuxkh" path="res://sprites/icons/buttons.png" id="4_4nfst"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tcpor"]
+atlas = ExtResource("4_4nfst")
+region = Rect2(0, 0, 16, 16)
 
 [node name="KeyMapping" type="Control"]
 custom_minimum_size = Vector2(200, 20)
@@ -37,3 +42,13 @@ theme_override_fonts/font = ExtResource("2_at1mc")
 theme_override_font_sizes/font_size = 16
 text = "Backspace"
 horizontal_alignment = 2
+
+[node name="Texture_Button" type="TextureRect" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 208.0
+offset_top = 2.0
+offset_right = 224.0
+offset_bottom = 18.0
+texture = SubResource("AtlasTexture_tcpor")

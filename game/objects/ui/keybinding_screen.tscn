@@ -26,9 +26,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
+offset_left = -110.0
 offset_top = -80.0
-offset_right = 100.0
+offset_right = 90.0
 offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -47,15 +47,15 @@ grow_vertical = 0
 theme_override_colors/font_color = Color(0.435294, 0.403922, 0.247059, 1)
 theme_override_fonts/font = ExtResource("1_h5gkn")
 theme_override_font_sizes/font_size = 16
-text = "Hold F12 to reset all bindings."
+text = "Hold F12 or L1+R1 to reset all bindings."
 horizontal_alignment = 1
 
 [node name="Cursor" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 190.0
-offset_top = 100.0
-offset_right = 446.0
-offset_bottom = 116.0
+offset_left = 180.0
+offset_top = 80.0
+offset_right = 436.0
+offset_bottom = 96.0
 
 [node name="Arrow_Left" type="Sprite2D" parent="Cursor"]
 texture_filter = 1
@@ -66,7 +66,7 @@ hframes = 18
 
 [node name="Arrow_Right" type="Sprite2D" parent="Cursor"]
 texture_filter = 1
-position = Vector2(240, 0)
+position = Vector2(264, 0)
 texture = ExtResource("3_rhxln")
 centered = false
 hframes = 18

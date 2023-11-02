@@ -121,6 +121,7 @@ func shift_wind(direction : Vector2, state : int) -> void:
 	anim_index = 0.0
 	current_state = state
 	shifted_wind = false
+	velocity.x = 0.0
 	arrow_left.hide()
 	arrow_right.hide()
 	audio_change_wind.play()
@@ -184,6 +185,10 @@ func state_normal(delta : float) -> void:
 			anim_index = 0.0
 			arrow_left.show()
 			arrow_right.show()
+		elif Input.is_action_just_pressed("change_wind_left"):
+			shift_wind(Vector2.LEFT, State.CHANGE_LEFT)
+		elif Input.is_action_just_pressed("change_wind_right"):
+			shift_wind(Vector2.RIGHT, State.CHANGE_RIGHT)
 	
 	if Input.is_action_just_pressed("restart_level"):
 		get_hit_with_rain()
