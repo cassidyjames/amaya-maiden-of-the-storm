@@ -16,6 +16,7 @@ var velocity : Vector2 = Vector2.ZERO
 var current_state : int = State.FLOATING
 var player : Node2D
 var wobble_index : float = 0.0
+var vibration_amount : float = 0.0
 
 func _on_body_entered(body) -> void:
 	if body is Player and current_state == State.FLOATING:
@@ -23,6 +24,7 @@ func _on_body_entered(body) -> void:
 		body.has_orb = true
 		current_state = State.FOLLOWING
 		audio_picked_up.play()
+		vibration_amount = 1.0
 
 func _on_timer_next_frame_timeout() -> void:
 	sprite.frame = wrapi(sprite.frame + 1, 0, 18)
@@ -47,4 +49,7 @@ func _physics_process(delta : float) -> void:
 		position += velocity * delta
 		velocity += Vector2.DOWN * FALL_ACCEL * delta
 		velocity = velocity.limit_length(MAX_SPEED)
+	if vibration_amount > 0.0:
+		if Settings.vibration: Input.start_joy_vibration(0, vibration_amount, 0.0, 0.1)
+		vibration_amount -= delta * 4.0
 

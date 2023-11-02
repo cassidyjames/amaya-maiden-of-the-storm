@@ -23,7 +23,7 @@ func move_cursor(change : int) -> void:
 	cursor_index = wrapi(cursor_index + change, 0, vbox_settings.get_child_count())
 	for i in range(0, vbox_settings.get_child_count()):
 		vbox_settings.get_child(i).modulate = Color("e4d793") if i == cursor_index else Color("6f673f")
-	create_tween().tween_property(cursor, "position:y", 120 + (cursor_index * 20), 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	create_tween().tween_property(cursor, "position:y", 110 + (cursor_index * 20), 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 func add_boolean_option(label : String, action : String, value : bool) -> void:
 	var mapping : Control = _KeyMapping.instantiate()
@@ -50,6 +50,10 @@ func handle_button_pressed() -> void:
 			Settings.apply_config()
 			Settings.save_config()
 			vbox_settings.get_child(cursor_index).set_key("On" if Settings.show_mouse_cursor else "Off")
+		"vibration":
+			Settings.vibration = !Settings.vibration
+			Settings.save_config()
+			vbox_settings.get_child(cursor_index).set_key("On" if Settings.vibration else "Off")
 
 func handle_volume_change(change : float) -> void:
 	var action : String = vbox_settings.get_child(cursor_index).action
@@ -109,6 +113,7 @@ func _input(event : InputEvent) -> void:
 func _ready() -> void:
 	add_boolean_option("Fullscreen", "fullscreen", Settings.fullscreen)
 	add_boolean_option("Show Mouse Cursor", "show_mouse_cursor", Settings.show_mouse_cursor)
+	add_boolean_option("Vibration", "vibration", Settings.vibration)
 	add_volume_option("BGM", "bgm", Settings.bgm_volume)
 	add_volume_option("SFX", "sfx", Settings.sfx_volume)
 	add_volume_option("AMB", "amb", Settings.amb_volume)

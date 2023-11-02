@@ -37,9 +37,9 @@ theme_override_constants/separation = 0
 layout_mode = 3
 anchors_preset = 0
 offset_left = 190.0
-offset_top = 120.0
+offset_top = 110.0
 offset_right = 446.0
-offset_bottom = 136.0
+offset_bottom = 126.0
 
 [node name="Arrow_Left" type="Sprite2D" parent="Cursor"]
 texture_filter = 1

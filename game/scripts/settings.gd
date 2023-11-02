@@ -18,6 +18,7 @@ const BUTTON_ICON_OFFSET : Dictionary = {
 
 var fullscreen : bool
 var show_mouse_cursor : bool
+var vibration : bool
 var sfx_volume : float
 var bgm_volume : float
 var amb_volume : float
@@ -82,6 +83,7 @@ func save_config() -> void:
 	config.load(CONFIG_PATH)
 	config.set_value("graphics", "fullscreen", fullscreen)
 	config.set_value("graphics", "show_mouse_cursor", show_mouse_cursor)
+	config.set_value("misc", "vibration", vibration)
 	config.set_value("audio", "sfx_volume", sfx_volume)
 	config.set_value("audio", "bgm_volume", bgm_volume)
 	config.set_value("audio", "amb_volume", amb_volume)
@@ -94,6 +96,7 @@ func load_config() -> void:
 	config.load(CONFIG_PATH)
 	fullscreen = config.get_value("graphics", "fullscreen", true)
 	show_mouse_cursor = config.get_value("graphics", "show_mouse_cursor", false)
+	vibration = config.get_value("misc", "vibration", true)
 	sfx_volume = config.get_value("audio", "sfx_volume", 1.0)
 	bgm_volume = config.get_value("audio", "bgm_volume", 1.0)
 	amb_volume = config.get_value("audio", "amb_volume", 1.0)

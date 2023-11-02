@@ -49,6 +49,7 @@ func get_hit_with_rain() -> void:
 	current_state = State.HIT
 	anim_index = 0.0
 	timer_spawn_death_spark.start()
+	if Settings.vibration: Input.start_joy_vibration(0, 1.0, 1.0, 0.15)
 	var tween : Tween = create_tween().set_parallel()
 	tween.tween_property(self, "shine_a", 1.0, 0.1)
 	tween.tween_property(self, "shine_b", 0.5, 0.75)
@@ -98,8 +99,10 @@ func do_vertical_movement(delta : float) -> void:
 				move_and_collide(collision.get_remainder().length() * Vector2(-1.0, 1.0))
 		elif normal == Vector2.UP and current_state == State.JUMPING:
 			if velocity.y >= 200:
+				if Settings.vibration: Input.start_joy_vibration(0, 0.0, 1.0, 0.1)
 				current_state = State.LANDING
 			else:
+				if Settings.vibration: Input.start_joy_vibration(0, 1.0, 0.0, 0.075)
 				current_state = State.NORMAL
 			velocity.y = 0.0
 			anim_index = 0.0
@@ -117,6 +120,7 @@ func do_the_run_thing(direction : Vector2, multiplier : float, flip_sprite : boo
 
 func shift_wind(direction : Vector2, state : int) -> void:
 	get_tree().call_group("game", "_on_player_shift")
+	if Settings.vibration: Input.start_joy_vibration(0, 0.25, 0.0, 0.2)
 	sprite.flip_h = direction == Vector2.RIGHT
 	anim_index = 0.0
 	current_state = state
@@ -180,6 +184,7 @@ func state_normal(delta : float) -> void:
 			sprite.frame = 50
 			emit_jump_particles()
 			audio_jump.play()
+			if Settings.vibration: Input.start_joy_vibration(0, 0.5, 0.0, 0.05)
 		elif Input.is_action_just_pressed("change_wind"):
 			current_state = State.WIND_CHANGE
 			anim_index = 0.0
@@ -216,6 +221,7 @@ func state_jumping(delta : float) -> void:
 		current_state = State.JUMPING
 		anim_index = 0.0
 		audio_jump.play()
+		if Settings.vibration: Input.start_joy_vibration(0, 0.5, 0.0, 0.05)
 	else:
 		if !Input.is_action_pressed("jump"):
 			velocity.y = clamp(velocity.y + (FALL_INCR * delta), -MAX_FALL / 4.0, MAX_FALL)
@@ -274,6 +280,7 @@ func state_changing_wind(flip : bool, direction : Vector2, delta : float) -> voi
 	sprite.frame = 32 + clamp(anim_index * 15.0, 0, 15)
 	if anim_index >= 1.0 and !shifted_wind:
 		get_tree().call_group("rainrow", "change_rain_direction", direction)
+		if Settings.vibration: Input.start_joy_vibration(0, 1.0, 1.0, 0.2)
 		shifted_wind = true
 	if anim_index > 2.0:
 		sprite.flip_h = flip
