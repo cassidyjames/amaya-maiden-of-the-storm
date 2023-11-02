@@ -12,6 +12,11 @@ enum MusicState {WAITING, PLAYING_WIND, WIND_DONE, PLAYING_DREAM, DREAM_DONE}
 var music_state : int = MusicState.WAITING
 var ambience_started : bool = false
 
+func restart_game() -> void:
+	ambience_ending.stop()
+	music_state = MusicState.WAITING
+	ambience_started = false
+
 func play_ambience_thunder() -> void:
 	ambience_thunder.play()
 
@@ -26,6 +31,9 @@ func play_ambience_ending() -> void:
 	ambience_ending.volume_db = -40.0
 	ambience_ending.play()
 	create_tween().tween_property(ambience_ending, "volume_db", 0.0, 5.0)
+
+func fade_out_ending() -> void:
+	create_tween().tween_property(ambience_ending, "volume_db", -40.0, 1.0)
 
 func debug_start_ambience() -> void:
 	if ambience_started: return
