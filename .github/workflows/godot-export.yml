@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.EXPORT_NAME }}
-          path: ${{ env.EXPORT_NAME }}.pck
+          path: export/${{ env.EXPORT_NAME }}.pck
 
   release:
     name: Release
