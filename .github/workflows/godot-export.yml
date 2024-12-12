@@ -19,17 +19,17 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Cache Godot Engine downloads
-        id: cache-downloads
+        id: cache-godot
         uses: actions/cache@v4
         with:
           path: |
             ./export/godot
             ./export/editor_data/export_templates/${{ env.GODOT_VERSION }}.stable
-          key: ${{ env.GODOT_VERSION }}
+          key: godot-${{ env.GODOT_VERSION }}
 
       - name: Download Godot Engine from GitHub release
         id: download
-        if: steps.cache-downloads.outputs.cache-hit != 'true'
+        if: steps.cache-godot.outputs.cache-hit != 'true'
         run: |
           mkdir -p export && cd export
 
@@ -70,4 +70,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          gh release upload '${{ github.ref_name }}' ${EXPORT_NAME}.pck --repo '${{ github.repository }}'
+          gh release upload '${{ github.ref_name }}' export/${EXPORT_NAME}.pck --repo '${{ github.repository }}'
