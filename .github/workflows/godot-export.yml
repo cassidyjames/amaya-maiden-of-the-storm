@@ -38,7 +38,7 @@ jobs:
 
       - name: Export PCK file
         run: |
-          godot --verbose --headless --path=./game/project.godot --export-pack "Linux/X11" ${EXPORT_NAME}.pck
+          ./godot --verbose --headless --path=./game/project.godot --export-pack "Linux/X11" ${EXPORT_NAME}.pck
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
