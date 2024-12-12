@@ -22,6 +22,9 @@ jobs:
 
       - name: Set up Godot Engine
         run: |
+          # Use export working directory
+          mkdir export && cd export
+
           # Tell Godot Engine to be self-contained
           touch ._sc_
 
@@ -38,7 +41,8 @@ jobs:
 
       - name: Export PCK file
         run: |
-          ./godot --verbose --headless --path=./game --export-pack "Linux/X11" ${EXPORT_NAME}.pck
+          # NOTE: export filename is relative to the project path
+          ./godot --verbose --headless --path ../game --export-pack "Linux/X11" ../export/${EXPORT_NAME}.pck
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
