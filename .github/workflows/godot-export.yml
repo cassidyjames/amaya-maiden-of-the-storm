@@ -8,8 +8,6 @@ on:
 
 env:
   GODOT_VERSION: 4.3
-  GODOT_SHA512: fd52bb4ba8acc30ca5accd1c566d470ad7282f891ccc0995dfafabcf92bcf76280ce182bf9d80ebd885f3ed2165d01e1fc3f2928436b15498dfbd98656c2a45a
-  TEMPLATES_SHA512: 476366caf0fd45a8f24136cf9cf1dc0bc2b96f7c82d53e5f82200b55aefd07b286d283fd6f1ce29e0de70648c5a51d3b12f96c6d4fafd4e8c4878ecda6406d6a
   EXPORT_NAME: amaya
 
 jobs:
@@ -20,13 +18,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Godot Engine
-        run: |
-          # Use export working directory
-          mkdir export && cd export
+      - name: Cache Godot Engine downloads
+        id: cache-downloads
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./export/godot
+            ./export/editor_data/export_templates/${{ env.GODOT_VERSION }}.stable
+          key: ${{ env.GODOT_VERSION }}
 
-          # Tell Godot Engine to be self-contained
-          touch ._sc_
+      - name: Download Godot Engine from GitHub release
+        id: download
+        if: steps.cache-downloads.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p export && cd export
 
           # Download Godot Engine itself
           wget https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip && \
@@ -34,15 +39,20 @@ jobs:
           mv Godot_v${GODOT_VERSION}-stable_linux.x86_64 godot
 
           # Download export templates
-          mkdir --verbose --parents ./editor_data/export_templates
+          mkdir -p editor_data/export_templates
           wget https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz && \
           unzip Godot_v${GODOT_VERSION}-stable_export_templates.tpz && \
           mv templates editor_data/export_templates/${GODOT_VERSION}.stable
 
       - name: Export PCK file
         run: |
+          cd export
+
+          # Tell Godot Engine to be self-contained
+          touch ._sc_
+
           # NOTE: export filename is relative to the project path
-          ./export/godot --verbose --headless --path game --export-pack "Linux/X11" ../export/${EXPORT_NAME}.pck
+          ./godot --verbose --headless --path ../game --export-pack "Linux/X11" ../export/${EXPORT_NAME}.pck
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -56,12 +66,7 @@ jobs:
     if: ${{ github.event_name == 'release' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ env.EXPORT_NAME }}
-
-      - name: Upload to release
+      - name: Upload PCK file to release
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
