@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>uk.co.johngabriel.amaya</id>
+
+  <name>Amaya: Maiden of the Storm</name>
+  <summary>Guide the legendary dragon home</summary>
+
+  <developer id="uk.co.johngabriel">
+    <name translatable="no">John Gabriel</name>
+  </developer>
+
+  <description>
+    <p>Kuraokami has disappeared.</p>
+    <p>In his absence, a fierce storm has engulfed the land, imperiling all those who dare to stray outside. Only the legendary dragon can calm the savage rains, but the beacons that lead him home have fallen from their pedestals.</p>
+    <p>It falls to Amaya Shimizu, the young shrine maiden, to brave the storm, recover the scattered beacons, and guide Kuraokami home…</p>
+    <p>Controls:</p>
+    <ul>
+      <li>Move with the arrow keys</li>
+      <li>Use X to jump</li>
+      <li>Use C to redirect rain</li>
+      <li>Use R to restart a level</li>
+    </ul>
+    <p>All controls are rebindable in-game.</p>
+    <p>Credits:</p>
+    <ul>
+      <li>Designed and developed by <em>John Gabriel</em></li>
+      <li>Pixel art by Jerico Landry</li>
+      <li>Cutscene art by Jevil Shah</li>
+    </ul>
+    <p>Amaya: Maiden of the Storm was made for the fifty-eighth Godot Wild Jam.</p>
+  </description>
+
+  <content_rating type="oars-1.1" />
+
+  <url type="homepage">https://johngabrieluk.itch.io/amaya-maiden-of-the-storm</url>
+  <url type="bugtracker">https://github.com/cassidyjames/amaya-maiden-of-the-storm/issues</url>
+
+  <branding>
+    <color type="primary" scheme_preference="light">#BD8A8A</color>
+    <color type="primary" scheme_preference="dark">#810000</color>
+  </branding>
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/cassidyjames/amaya-maiden-of-the-storm/8b8cf5cbe1b6645500dc76b842ee5bec43ba4928/screenshots/1.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/cassidyjames/amaya-maiden-of-the-storm/8b8cf5cbe1b6645500dc76b842ee5bec43ba4928/screenshots/2.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/cassidyjames/amaya-maiden-of-the-storm/8b8cf5cbe1b6645500dc76b842ee5bec43ba4928/screenshots/3.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/cassidyjames/amaya-maiden-of-the-storm/8b8cf5cbe1b6645500dc76b842ee5bec43ba4928/screenshots/4.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/cassidyjames/amaya-maiden-of-the-storm/8b8cf5cbe1b6645500dc76b842ee5bec43ba4928/screenshots/5.png</image>
+    </screenshot>
+  </screenshots>
+
+  <releases>
+    <release version="1.0.2" date="2023-11-02">
+      <description>
+        <p>Hello there! Here's a quick update to Amaya that I put together when I should have been packing for GodotCon.</p>
+        <ul>
+          <li>Added gamepad support</li>
+          <li>Added rumble support</li>
+          <li>Made the game restart after you finish</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.0.1" date="2023-06-24T15:57:28Z">
+      <description>
+        <p>Thank you to everyone who played, rated, and left feedback for <em>Amaya!</em> We're thrilled to have won. This first post-jam update contains the following changes:</p>
+        <ul>
+          <li>Fixed a bug where Amaya would stutter on the edge of a cliff</li>
+          <li>Fixed a bug where Amaya's momentum would "freeze" during a hard landing</li>
+          <li>Fixed a bug where firepots would still heat buckets even when extinguished</li>
+          <li>Changed the speed at which objects on pulleys ascend/descend</li>
+          <li>Added a sound effect when pushing an object</li>
+          <li>Made various graphical tweaks and improvements</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.0.0" date="2023-06-18">
+      <description>
+        <p>Initial release for Godot Wild Jam #58</p>
+      </description>
+    </release>
+  </releases>
+
+  <launchable type="desktop-id">uk.co.johngabriel.amaya.desktop</launchable>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+</component>
