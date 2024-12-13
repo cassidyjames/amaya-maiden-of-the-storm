@@ -17,9 +17,8 @@ modules:
     buildsystem: simple
 
     sources:
-      - type: git
-        url: https://github.com/cassidyjames/amaya-maiden-of-the-storm.git
-        commit: 6dbe2bc2d96e84b096b6a03902030679d21c9b08
+      - type: dir
+        path: .
 
       - type: file
         url: https://github.com/cassidyjames/amaya-maiden-of-the-storm/releases/download/1.0.2-flathub/amaya.pck
