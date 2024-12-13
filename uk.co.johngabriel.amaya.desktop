@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Amaya: Maiden of the Storm
+Comment=Guide the legendary dragon home
+Categories=Game;LogicGame;ArcadeGame;KidsGame;
+Icon=uk.co.johngabriel.amaya
+Exec=godot-runner
+Type=Application
+Terminal=false
