@@ -75,4 +75,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          gh release upload '${{ github.ref_name }}' ${EXPORT_NAME}.pck --repo '${{ github.repository }}'
+          gh release upload '${{ github.ref_name }}' ${{ env.EXPORT_NAME }}.pck --repo '${{ github.repository }}'
